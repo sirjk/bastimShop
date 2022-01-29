@@ -53,7 +53,7 @@ export const ProductsList: FunctionComponent<Props>=(props: Props)=>{
 
     useEffect(()=>{
         setSearchPhrase(searchPhrase_)
-    })
+    }, [searchPhrase_])
 
     function onShowSizeChange(current: number, pageLimit: number) {
         setPageLimit(pageLimit)

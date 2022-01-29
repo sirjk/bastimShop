@@ -1,0 +1,126 @@
+.profile-window{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.profile-info-window{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    min-width: 800px;
+    min-height: 400px;
+    -webkit-box-shadow: 0 0 8px 0 rgb(0 0 0 / 40%);
+    -moz-box-shadow: 0 0 8px 0 rgb(0 0 0 / 40%);
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 40%);
+    padding: 20px;
+}
+
+.profile-info-window-content{
+   display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.data-titles-div{
+    display:flex;
+    flex-direction:column;
+    text-align:end;
+    width: 50%;
+}
+
+.data-div{
+    display:flex;
+    flex-direction:column;
+    text-align:start;
+    margin-left: 50px;
+    width: 50%;
+}
+
+.buttons{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    margin: 50px;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.button{
+    width: 100%;
+    color: black;
+}
+
+.button:hover{
+    color: #1890ff;
+}
+
+.edit-text{
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin-right: 10px;
+}
+
+.cancel-text{
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin-right: 10px;
+    color: red;
+}
+
+.edit-text:hover{
+    color: #1890ff;
+}
+
+.text-data {
+    letter-spacing: 2px;
+    margin-right: 20px;
+    font-size: 20px;
+    margin-top: 23px;
+    width: 30%;
+    height: 40px;
+    text-align: start;
+    min-width: 200px;
+}
+
+.text-before{
+    letter-spacing: 2px;
+    margin-right: 20px;
+    font-size: 20px;
+    margin-top: 23px;
+    width: 30%;
+    min-width: 110px;
+    height: 40px;
+    text-align: end;
+}
+
+.data-div-row{
+    display: flex;
+    width: 100%;
+    min-width: 200px;
+}
+
+.edit-div{
+    display: flex;
+    flex-direction:column;
+}
+
+.confirm-btn-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}

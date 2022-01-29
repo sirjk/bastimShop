@@ -1,0 +1,6 @@
+.category-and-filter-column-bar{
+    min-width:200px;
+    width : 256px;
+    border-right: 1px solid rgb(241, 241, 241);
+    border-top: 1px solid rgb(241, 241, 241);
+}

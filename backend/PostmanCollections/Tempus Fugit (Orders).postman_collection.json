@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "162dd74a-4de0-435e-afbf-681ef7dd9168",
+		"name": "Tempus Fugit (Orders)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Orders All [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders All [GET] with Params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "user-ids",
+							"value": "1,3",
+							"disabled": true
+						},
+						{
+							"key": "shipment-states",
+							"value": "sent,processing",
+							"disabled": true
+						},
+						{
+							"key": "order-states",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "min-total-cost",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "max-total-cost",
+							"value": "1000000",
+							"disabled": true
+						},
+						{
+							"key": "from-shipment-date",
+							"value": "1999-01-01",
+							"disabled": true
+						},
+						{
+							"key": "to-shipment-date",
+							"value": "2999-01-01",
+							"disabled": true
+						},
+						{
+							"key": "from-buy-date",
+							"value": "1999-01-01",
+							"disabled": true
+						},
+						{
+							"key": "to-buy-date",
+							"value": "2999-01-01",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders Peculiar [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/orders/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders Peculiar [PUT]",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productMap\":{\r\n        \"1\": {\r\n            \"product\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Śróbka rx76 paczka 110 GRATIS 10 ŚRÓBEK - NIE MOŻESZ TEGO PRZEGAPIĆ!\",\r\n                    \"categoryId\": 2,\r\n                     \"price\": 35.99,\r\n                    \"quantityInStock\": 993,\r\n                    \"totalQuantitySold\": 16321,\r\n                    \"manufacturer\": \"RPA\",\r\n                    \"description\": \"Super wspaniała śróbka firmy RPA odmieni Twoje życie na lepsze!\",\r\n                    \"specification\": \"{ \\\"Produkt\\\": {\\\"Producent\\\": \\\"RPA\\\"}\"\r\n            },\r\n            \"quantity\": 200\r\n        }\r\n    },\r\n    \"totalCost\": 200,\r\n    \"buyDate\": \"1999-01-01\",\r\n    \"shipmentDate\": \"2021-01-01\",\r\n    \"shipmantState\": \"sent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/orders/45",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"45"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders Peculiar [DELETE]",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/orders/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders [POST]",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"userId\": 3,\n    \"productMap\":{\n        \"1\": {\n            \"product\": {\n                    \"id\": 1,\n                    \"name\": \"Śrubka rx76 paczka 110 GRATIS 10 ŚRUBEK - NIE MOŻESZ TEGO PRZEGAPIĆ!\",\n                    \"categoryId\": 2,\n                     \"price\": 35.99,\n                    \"quantityInStock\": 993,\n                    \"totalQuantitySold\": 16321,\n                    \"manufacturer\": \"RPA\",\n                    \"description\": \"Super wspaniała śrubka firmy RPA odmieni Twoje życie na lepsze!\",\n                    \"specification\": \"{ \\\"Produkt\\\": {\\\"Producent\\\": \\\"RPA\\\"}\"\n            },\n            \"quantity\": 200\n        }\n    },\n    \"totalCost\": 200,\n    \"buyDate\": \"1999-01-01\",\n    \"shipmentDate\": \"2021-01-01\",\n    \"shipmentState\": \"sent\",\n    \"orderState\": \"accepted\"\n}]"
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({",
+					"  key: 'Authorization',",
+					"  value: 'Bearer ' + pm.globals.get(\"current_token\")",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "26e80135-c518-40b7-8756-c0612f13736a",
+		"name": "Tempus Fugit Login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login admin [POST]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"pm.globals.set(\"current_token\", data.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "kowalski@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login admin [POST] (cookies)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "kowalski@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token [POST]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "kowalski@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "Authorization",
+							"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dhbHNraUBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6WyJSRUFEX0NBVEVHT1JZIiwiUkVBRF9VU0VSX1NFTEYiLCJVUERBVEVfVVNFUl9TRUxGIiwiUkVBRF9PUkRFUlMiLCJSRUFEX1BST0RVQ1QiLCJXUklURV9VU0VSX1JPTEUiLCJVUERBVEVfT1JERVJTIiwiUkVBRF9QRVJNSVNTSU9OIiwiVVBEQVRFX09SREVSU19TRUxGIiwiVVBEQVRFX1BST0RVQ1QiLCJERUxFVEVfT1JERVJTIiwiUkVBRF9DQVRFR09SWSIsIkRFTEVURV9QUk9EVUNUIiwiV1JJVEVfT1JERVJTX1NFTEYiLCJVUERBVEVfUEVSTUlTU0lPTiIsIldSSVRFX1VTRVIiLCJXUklURV9DQVRFR09SWSIsIlVQREFURV9DQVRFR09SWSIsIkRFTEVURV9ST0xFX1BFUk1JU1NJT04iLCJSRUFEX1BST0RVQ1QiLCJXUklURV9PUkRFUlMiLCJXUklURV9QUk9EVUNUIiwiREVMRVRFX1BFUk1JU1NJT04iLCJERUxFVEVfVVNFUiIsIlJFQURfVVNFUl9ST0xFIiwiVVBEQVRFX1VTRVIiLCJSRUFEX09SREVSUyIsIldSSVRFX1BFUk1JU1NJT04iLCJSRUFEX1JPTEVfUEVSTUlTU0lPTiIsIkRFTEVURV9VU0VSX1JPTEUiLCJERUxFVEVfT1JERVJTX1NFTEYiLCJSRUFEX1VTRVIiLCJSRUFEX09SREVSU19TRUxGIiwiREVMRVRFX0NBVEVHT1JZIiwiV1JJVEVfUk9MRV9QRVJNSVNTSU9OIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvdjEvdXNlcnMvcmVmcmVzaF90b2tlbiIsImV4cCI6MTY0MDkxMjkzMX0.eOJP7mXx7pJdv0_ZZvh4kPZOub9gaWxgLqk2nDFKcFE",
+							"type": "string"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/refresh_token",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"refresh_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token [POST] (cookies)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "kowalski@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "admin123",
+							"type": "string"
+						},
+						{
+							"key": "Authorization",
+							"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dhbHNraUBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6WyJSRUFEX0NBVEVHT1JZIiwiUkVBRF9VU0VSX1NFTEYiLCJVUERBVEVfVVNFUl9TRUxGIiwiUkVBRF9PUkRFUlMiLCJSRUFEX1BST0RVQ1QiLCJXUklURV9VU0VSX1JPTEUiLCJVUERBVEVfT1JERVJTIiwiUkVBRF9QRVJNSVNTSU9OIiwiVVBEQVRFX09SREVSU19TRUxGIiwiVVBEQVRFX1BST0RVQ1QiLCJERUxFVEVfT1JERVJTIiwiUkVBRF9DQVRFR09SWSIsIkRFTEVURV9QUk9EVUNUIiwiV1JJVEVfT1JERVJTX1NFTEYiLCJVUERBVEVfUEVSTUlTU0lPTiIsIldSSVRFX1VTRVIiLCJXUklURV9DQVRFR09SWSIsIlVQREFURV9DQVRFR09SWSIsIkRFTEVURV9ST0xFX1BFUk1JU1NJT04iLCJSRUFEX1BST0RVQ1QiLCJXUklURV9PUkRFUlMiLCJXUklURV9QUk9EVUNUIiwiREVMRVRFX1BFUk1JU1NJT04iLCJERUxFVEVfVVNFUiIsIlJFQURfVVNFUl9ST0xFIiwiVVBEQVRFX1VTRVIiLCJSRUFEX09SREVSUyIsIldSSVRFX1BFUk1JU1NJT04iLCJSRUFEX1JPTEVfUEVSTUlTU0lPTiIsIkRFTEVURV9VU0VSX1JPTEUiLCJERUxFVEVfT1JERVJTX1NFTEYiLCJSRUFEX1VTRVIiLCJSRUFEX09SREVSU19TRUxGIiwiREVMRVRFX0NBVEVHT1JZIiwiV1JJVEVfUk9MRV9QRVJNSVNTSU9OIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvdjEvdXNlcnMvcmVmcmVzaF90b2tlbiIsImV4cCI6MTY0MDkxMjkzMX0.eOJP7mXx7pJdv0_ZZvh4kPZOub9gaWxgLqk2nDFKcFE",
+							"type": "string",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/refresh_token",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"refresh_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user [POST]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"pm.globals.set(\"current_token\", data.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "frankowski10@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "fajnehaslo",
+							"type": "string"
+						},
+						{
+							"key": "Authorization",
+							"value": "Bearer {{current_token}}",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user [POST]  (cookies)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"pm.globals.set(\"current_token\", data.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "frankowski10@gmail.com",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "fajnehaslo",
+							"type": "string"
+						},
+						{
+							"key": "Authorization",
+							"value": "Bearer {{current_token}}",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register user [POST]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Kamil\",\r\n    \"lastName\": \"Kowal\",\r\n    \"email\": \"Kasz\",\r\n    \"password\": \"Kaszanka\",\r\n    \"address\": \"Kaszanki Złotej 36\",\r\n    \"birthDate\": \"1999-01-01\",\r\n    \"city\": \"Kraków\",\r\n    \"country\": \"Polska\",\r\n    \"postalAddress\": \"30-300\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout [POST]",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dhbHNraUBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6WyJERUxFVEVfQ0FURUdPUlkiLCJERUxFVEVfT1JERVIiLCJERUxFVEVfUEVSTUlTU0lPTiIsIkRFTEVURV9QUk9EVUNUIiwiREVMRVRFX1JPTEUiLCJERUxFVEVfUk9MRV9QRVJNSVNTSU9OIiwiREVMRVRFX1VTRVIiLCJERUxFVEVfVVNFUl9ST0xFIiwiUkVBRF9DQVRFR09SWSIsIlJFQURfT1JERVIiLCJSRUFEX1BFUk1JU1NJT04iLCJSRUFEX1BST0RVQ1QiLCJSRUFEX1JPTEUiLCJSRUFEX1JPTEVfUEVSTUlTU0lPTiIsIlJFQURfVVNFUiIsIlJFQURfVVNFUl9ST0xFIiwiVVBEQVRFX0NBVEVHT1JZIiwiVVBEQVRFX09SREVSIiwiVVBEQVRFX1BFUk1JU1NJT04iLCJVUERBVEVfUFJPRFVDVCIsIlVQREFURV9ST0xFIiwiVVBEQVRFX1VTRVIiLCJXUklURV9DQVRFR09SWSIsIldSSVRFX09SREVSIiwiV1JJVEVfUEVSTUlTU0lPTiIsIldSSVRFX1BST0RVQ1QiLCJXUklURV9ST0xFIiwiV1JJVEVfUk9MRV9QRVJNSVNTSU9OIiwiV1JJVEVfVVNFUiIsIldSSVRFX1VTRVJfUk9MRSJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL3YxL2xvZ2luIiwiZXhwIjoxNjQxODQwNjI5fQ.dsOxwsO8Bpk1he7cPrAPceFfSqOX4AJwqtRDKFIW2Zs",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout [POST] (cookies)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dhbHNraUBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6WyJERUxFVEVfQ0FURUdPUlkiLCJERUxFVEVfT1JERVIiLCJERUxFVEVfUEVSTUlTU0lPTiIsIkRFTEVURV9QUk9EVUNUIiwiREVMRVRFX1JPTEUiLCJERUxFVEVfUk9MRV9QRVJNSVNTSU9OIiwiREVMRVRFX1VTRVIiLCJERUxFVEVfVVNFUl9ST0xFIiwiUkVBRF9DQVRFR09SWSIsIlJFQURfT1JERVIiLCJSRUFEX1BFUk1JU1NJT04iLCJSRUFEX1BST0RVQ1QiLCJSRUFEX1JPTEUiLCJSRUFEX1JPTEVfUEVSTUlTU0lPTiIsIlJFQURfVVNFUiIsIlJFQURfVVNFUl9ST0xFIiwiVVBEQVRFX0NBVEVHT1JZIiwiVVBEQVRFX09SREVSIiwiVVBEQVRFX1BFUk1JU1NJT04iLCJVUERBVEVfUFJPRFVDVCIsIlVQREFURV9ST0xFIiwiVVBEQVRFX1VTRVIiLCJXUklURV9DQVRFR09SWSIsIldSSVRFX09SREVSIiwiV1JJVEVfUEVSTUlTU0lPTiIsIldSSVRFX1BST0RVQ1QiLCJXUklURV9ST0xFIiwiV1JJVEVfUk9MRV9QRVJNSVNTSU9OIiwiV1JJVEVfVVNFUiIsIldSSVRFX1VTRVJfUk9MRSJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL3YxL2xvZ2luIiwiZXhwIjoxNjQxODQwNjI5fQ.dsOxwsO8Bpk1he7cPrAPceFfSqOX4AJwqtRDKFIW2Zs",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout [POST] (cookies) Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dhbHNraUBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6WyJERUxFVEVfQ0FURUdPUlkiLCJERUxFVEVfT1JERVIiLCJERUxFVEVfUEVSTUlTU0lPTiIsIkRFTEVURV9QUk9EVUNUIiwiREVMRVRFX1JPTEUiLCJERUxFVEVfUk9MRV9QRVJNSVNTSU9OIiwiREVMRVRFX1VTRVIiLCJERUxFVEVfVVNFUl9ST0xFIiwiUkVBRF9DQVRFR09SWSIsIlJFQURfT1JERVIiLCJSRUFEX1BFUk1JU1NJT04iLCJSRUFEX1BST0RVQ1QiLCJSRUFEX1JPTEUiLCJSRUFEX1JPTEVfUEVSTUlTU0lPTiIsIlJFQURfVVNFUiIsIlJFQURfVVNFUl9ST0xFIiwiVVBEQVRFX0NBVEVHT1JZIiwiVVBEQVRFX09SREVSIiwiVVBEQVRFX1BFUk1JU1NJT04iLCJVUERBVEVfUFJPRFVDVCIsIlVQREFURV9ST0xFIiwiVVBEQVRFX1VTRVIiLCJXUklURV9DQVRFR09SWSIsIldSSVRFX09SREVSIiwiV1JJVEVfUEVSTUlTU0lPTiIsIldSSVRFX1BST0RVQ1QiLCJXUklURV9ST0xFIiwiV1JJVEVfUk9MRV9QRVJNSVNTSU9OIiwiV1JJVEVfVVNFUiIsIldSSVRFX1VTRVJfUk9MRSJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvYXBpL3YxL2xvZ2luIiwiZXhwIjoxNjQxODQwNjI5fQ.dsOxwsO8Bpk1he7cPrAPceFfSqOX4AJwqtRDKFIW2Zs",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

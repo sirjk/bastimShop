@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "6c9a31ea-b167-4918-bb6e-71057d7a3220",
+		"name": "Tempus Fugit (Permissions)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Permissions All [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/permissions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"permissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Permissions All [GET] with params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/permissions?search-phrase=write_c",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"permissions"
+					],
+					"query": [
+						{
+							"key": "search-phrase",
+							"value": "write_c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Permissions Peculiar [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/permissions/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"permissions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Permissions Peculiar [PUT]",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"CATEGORY_READ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/permissions/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"permissions",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Permissions Peculiar [DELETE]",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/permissions/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"permissions",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Permissions [POST]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n    \"name\": \"CATEGORY_READ\"\r\n},\r\n{\r\n    \"name\": \"CATEGORY_WRITE\"\r\n},\r\n{\r\n    \"name\": \"PRODUCT_READ\"\r\n},\r\n{\r\n    \"name\": \"PRODUCT_WRITE\"\r\n}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/permissions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"permissions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({",
+					"  key: 'Authorization',",
+					"  value: 'Bearer ' + pm.globals.get(\"current_token\")",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

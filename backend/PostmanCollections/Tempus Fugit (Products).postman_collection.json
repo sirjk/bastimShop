@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "ba847e34-0a82-47a9-8f8e-31366aec2415",
+		"name": "Tempus Fugit (Products)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products All [GET]",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmcmFua293c2tpMTBAZ21haWwuY29tIiwicGVybWlzc2lvbnMiOlsiUkVBRF9DQVRFR09SWSIsIlJFQURfT1JERVJTIiwiUkVBRF9QUk9EVUNUIiwiUkVBRF9VU0VSX1NFTEYiLCJVUERBVEVfVVNFUl9TRUxGIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2NDEwNjQ1MDd9.zkU-nu0MGnb5_Vc_SJ5uj1j4fOWPZ2rsGRnXEqbD-yQ",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products All [GET] with Params",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmcmFua293c2tpMTBAZ21haWwuY29tIiwicGVybWlzc2lvbnMiOlsiUkVBRF9DQVRFR09SWSIsIlJFQURfT1JERVJTIiwiUkVBRF9QUk9EVUNUIiwiUkVBRF9VU0VSX1NFTEYiLCJVUERBVEVfVVNFUl9TRUxGIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2NDEwNjQ1MDd9.zkU-nu0MGnb5_Vc_SJ5uj1j4fOWPZ2rsGRnXEqbD-yQ",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "search-phrase",
+							"value": "12",
+							"disabled": true
+						},
+						{
+							"key": "category",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "min-price",
+							"value": "1.0",
+							"disabled": true
+						},
+						{
+							"key": "max-price",
+							"value": "30.0",
+							"disabled": true
+						},
+						{
+							"key": "present-in-stock",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "sort-by",
+							"value": "price",
+							"disabled": true
+						},
+						{
+							"key": "sort-type",
+							"value": "descending",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "5",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products Peculiar [GET]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/products/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products Peculiar [PUT]",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Śrubka rx76 paczka 110 GRATIS 10 ŚRUBEK - NIE MOŻESZ TEGO PRZEGAPIĆ!\",\r\n    \"categoryId\": 2,\r\n    \"price\": 35.99,\r\n    \"quantityInStock\": 993,\r\n    \"totalQuantitySold\": 16321,\r\n    \"manufacturer\": \"RPA\",\r\n    \"description\": \"Super wspaniała śrubka firmy RPA odmieni Twoje życie na lepsze!\",\r\n    \"specification\": \"{ \\\"Produkt\\\": {\\\"Producent\\\": \\\"RPA\\\"}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/products/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products Peculiar [DELETE]",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/products/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products [POST]",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"name\": \"Śrubka rx76 paczka 100\",\n    \"categoryId\": 1,\n    \"price\": 1.99,\n    \"quantityInStock\": 993,\n    \"totalQuantitySold\": 16321,\n    \"manufacturer\": \"RPA\",\n    \"description\": \"Super wspaniała Śrubka firmy RPA odmieni Twoje życie na lepsze!\",\n    \"specification\": \"{ \\\"Produkt\\\": {\\\"Producent\\\": \\\"RPA\\\"}\"\n},\n{\n    \"name\": \"Śrubka rx78 paczka 100\",\n    \"categoryId\": 5,\n    \"price\": 25.99,\n    \"quantityInStock\": 0,\n    \"totalQuantitySold\": 16321,\n    \"manufacturer\": \"RPA\",\n    \"description\": \"Super wspaniała Śrubka firmy RPA odmieni Twoje życie na lepsze!\",\n    \"specification\": \"{ \\\"Produkt\\\": {\\\"Producent\\\": \\\"RPA\\\"}\"\n},{\n    \"name\": \"Śrubka ts114 paczka 100\",\n    \"categoryId\": 6,\n    \"price\": 55.99,\n    \"quantityInStock\": 993,\n    \"totalQuantitySold\": 16321,\n    \"manufacturer\": \"DDT\",\n    \"description\": \"Śrubka ts114 firmy DDT to przedmiot, na który zasługujesz!\",\n    \"specification\": \"{ \\\"Produkt\\\": {\\\"Producent\\\": \\\"DDT\\\"}\"\n}\n]"
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({",
+					"  key: 'Authorization',",
+					"  value: 'Bearer ' + pm.globals.get(\"current_token\")",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

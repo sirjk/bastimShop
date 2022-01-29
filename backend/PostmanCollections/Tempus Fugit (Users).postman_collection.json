@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "258a232a-e85c-443a-ba0d-7294ba88d07d",
+		"name": "Tempus Fugit (Users)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users All [GET]",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dhbHNraUBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6WyJERUxFVEVfQ0FURUdPUlkiLCJERUxFVEVfT1JERVJTIiwiREVMRVRFX09SREVSU19TRUxGIiwiREVMRVRFX1BFUk1JU1NJT04iLCJERUxFVEVfUFJPRFVDVCIsIkRFTEVURV9ST0xFX1BFUk1JU1NJT04iLCJERUxFVEVfVVNFUiIsIkRFTEVURV9VU0VSX1JPTEUiLCJSRUFEX0NBVEVHT1JZIiwiUkVBRF9PUkRFUlMiLCJSRUFEX09SREVSU19TRUxGIiwiUkVBRF9QRVJNSVNTSU9OIiwiUkVBRF9QUk9EVUNUIiwiUkVBRF9ST0xFX1BFUk1JU1NJT04iLCJSRUFEX1VTRVIiLCJSRUFEX1VTRVJfUk9MRSIsIlVQREFURV9DQVRFR09SWSIsIlVQREFURV9PUkRFUlMiLCJVUERBVEVfT1JERVJTX1NFTEYiLCJVUERBVEVfUEVSTUlTU0lPTiIsIlVQREFURV9QUk9EVUNUIiwiVVBEQVRFX1VTRVIiLCJXUklURV9DQVRFR09SWSIsIldSSVRFX09SREVSUyIsIldSSVRFX09SREVSU19TRUxGIiwiV1JJVEVfUEVSTUlTU0lPTiIsIldSSVRFX1BST0RVQ1QiLCJXUklURV9ST0xFX1BFUk1JU1NJT04iLCJXUklURV9VU0VSX1JPTEUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwaS9sb2dpbiIsImV4cCI6MTY0MTA2NTI5OX0.Gta6-WFUMT565TYJIKmagb1R2c-Cn5q7iLkhKTX1nPg",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users All [GET] with params",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrb3dhbHNraUBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6WyJERUxFVEVfQ0FURUdPUlkiLCJERUxFVEVfT1JERVJTIiwiREVMRVRFX09SREVSU19TRUxGIiwiREVMRVRFX1BFUk1JU1NJT04iLCJERUxFVEVfUFJPRFVDVCIsIkRFTEVURV9ST0xFX1BFUk1JU1NJT04iLCJERUxFVEVfVVNFUiIsIkRFTEVURV9VU0VSX1JPTEUiLCJSRUFEX0NBVEVHT1JZIiwiUkVBRF9PUkRFUlMiLCJSRUFEX09SREVSU19TRUxGIiwiUkVBRF9QRVJNSVNTSU9OIiwiUkVBRF9QUk9EVUNUIiwiUkVBRF9ST0xFX1BFUk1JU1NJT04iLCJSRUFEX1VTRVIiLCJSRUFEX1VTRVJfUk9MRSIsIlVQREFURV9DQVRFR09SWSIsIlVQREFURV9PUkRFUlMiLCJVUERBVEVfT1JERVJTX1NFTEYiLCJVUERBVEVfUEVSTUlTU0lPTiIsIlVQREFURV9QUk9EVUNUIiwiVVBEQVRFX1VTRVIiLCJXUklURV9DQVRFR09SWSIsIldSSVRFX09SREVSUyIsIldSSVRFX09SREVSU19TRUxGIiwiV1JJVEVfUEVSTUlTU0lPTiIsIldSSVRFX1BST0RVQ1QiLCJXUklURV9ST0xFX1BFUk1JU1NJT04iLCJXUklURV9VU0VSX1JPTEUiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwaS9sb2dpbiIsImV4cCI6MTY0MTA2NTI5OX0.Gta6-WFUMT565TYJIKmagb1R2c-Cn5q7iLkhKTX1nPg",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/users?search-phrase=kow&max-points=500&city=kraków&address=sz&postalAddress=35-051",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "search-phrase",
+							"value": "kow"
+						},
+						{
+							"key": "min-birth-date",
+							"value": "2000-10-19",
+							"disabled": true
+						},
+						{
+							"key": "max-birth-date",
+							"value": "1993-04-16",
+							"disabled": true
+						},
+						{
+							"key": "min-points",
+							"value": "420",
+							"disabled": true
+						},
+						{
+							"key": "max-points",
+							"value": "500"
+						},
+						{
+							"key": "password",
+							"value": "$2a$10$8tEH",
+							"disabled": true
+						},
+						{
+							"key": "country",
+							"value": "polska",
+							"disabled": true
+						},
+						{
+							"key": "city",
+							"value": "kraków"
+						},
+						{
+							"key": "address",
+							"value": "sz"
+						},
+						{
+							"key": "postalAddress",
+							"value": "35-051"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users Peculiar [GET]",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmcmFua293c2tpMTBAZ21haWwuY29tIiwicGVybWlzc2lvbnMiOlsiUkVBRF9DQVRFR09SWSIsIlJFQURfT1JERVJTIiwiUkVBRF9QUk9EVUNUIiwiUkVBRF9VU0VSX1NFTEYiLCJVUERBVEVfVVNFUl9TRUxGIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9hcGkvbG9naW4iLCJleHAiOjE2NDEwNjUxNTd9.3XWwiFPorln7dK99doeYUuDbahNtrhYD-gA9Bu-N3fs",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/v1/users/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users Peculiar [PUT]",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Kamil\",\r\n    \"lastName\": \"Olesinski\",\r\n    \"email\": \"asdasd@asdads.com\",\r\n    \"birthDate\": \"1999-01-01\",\r\n    \"points\": 100,\r\n    \"password\": \"123\",\r\n    \"country\": \"Polska\",\r\n    \"city\": \"Radom\",\r\n    \"address\": \"Kwiatowa 32\",\r\n    \"postalAddress\": \"30-300\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/users/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users Peculiar [DELETE]",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/users/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users [POST]",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n    \"firstName\": \"Kamil\",\r\n    \"lastName\": \"Olesinski\",\r\n    \"email\": \"oleskam@bambo.com\",\r\n    \"birthDate\": \"1999-01-01\",\r\n    \"points\": 100,\r\n    \"password\": \"123\",\r\n    \"country\": \"Polska\",\r\n    \"city\": \"Radom\",\r\n    \"address\": \"Kwiatowa 32\",\r\n    \"postalAddress\": \"30-300\"\r\n\r\n},\r\n{\r\n    \"firstName\": \"Jan\",\r\n    \"lastName\": \"Kowalski\",\r\n    \"email\": \"jankowalski@gmail.com\",\r\n    \"birthDate\": \"1989-02-01\",\r\n    \"points\": 420,\r\n    \"password\": \"123\",\r\n    \"country\": \"Polska\",\r\n    \"city\": \"Sosnowiec\",\r\n    \"address\": \"Kwiatowa 22\",\r\n    \"postalAddress\": \"37-300\"\r\n\r\n},\r\n{\r\n    \"firstName\": \"Janina\",\r\n    \"lastName\": \"Kowalska\",\r\n    \"email\": \"janinakowalska4@gmail.com\",\r\n    \"birthDate\": \"1999-02-01\",\r\n    \"points\": 421,\r\n    \"password\": \"123\",\r\n    \"country\": \"Polska\",\r\n    \"city\": \"Sosnowiec\",\r\n    \"address\": \"Kwiatowa 22\",\r\n    \"postalAddress\": \"37-300\",\r\n    \"roles\":[{\"id\": 1},{\"id\": 2} ]\r\n\r\n}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({",
+					"  key: 'Authorization',",
+					"  value: 'Bearer ' + pm.globals.get(\"current_token\")",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

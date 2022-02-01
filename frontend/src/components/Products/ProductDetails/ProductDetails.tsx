@@ -1,13 +1,13 @@
 import React, {FunctionComponent, useEffect, useRef, useState} from 'react'
 import {useParams} from "react-router";
-import products from "../actions/products";
-import productDetailsClass from "../css/productDetails.module.css"
-import appClasses from "../css/app.module.css";
-import textToURL from "./utility/textToURL";
+import products from "../../../actions/products";
+import productDetailsClass from "./productDetails.module.css"
+import appClasses from "../../../app.module.css";
+import textToURL from "../../utility/textToURL";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Button, Divider, Input, InputNumber} from "antd";
 import {CheckCircleOutlined, ExclamationCircleOutlined, MinusOutlined, PlusCircleOutlined} from "@ant-design/icons";
-import {PathBar} from "./PathBar";
+import {PathBar} from "../../PathBar/PathBar";
 
 interface Props{
 }

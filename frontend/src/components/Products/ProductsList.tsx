@@ -1,12 +1,12 @@
 import React, {FunctionComponent, useEffect, useState} from 'react'
-import products from "../actions/products";
+import products from "../../actions/products";
 import {ProductTile} from "./ProductTile";
-import productClasses from "../css/product.module.css";
-import appClasses from "../css/app.module.css";
+import productClasses from "./product.module.css";
+import appClasses from "../../app.module.css";
 import {Divider, Input, Pagination} from "antd";
 import {useSelector} from "react-redux";
-import {RootStateDesiredPath} from "../redux/reducers/pathReducers";
-import {RootStateSearchPhrase} from "../redux/reducers/searchReducers";
+import {RootStateDesiredPath} from "../../redux/reducers/pathReducers";
+import {RootStateSearchPhrase} from "../../redux/reducers/searchReducers";
 
 
 interface Props{

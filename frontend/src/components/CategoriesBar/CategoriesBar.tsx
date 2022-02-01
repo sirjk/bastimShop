@@ -1,13 +1,13 @@
 import React, {FunctionComponent, useEffect, useState} from 'react'
 import 'antd/dist/antd.css';
-import classes from "../css/categorybar.module.css";
-import classesGlobal from "../css/app.module.css";
+import classes from "./categoriesBar.module.css";
+import classesGlobal from "../../app.module.css";
 import {PhoneOutlined, DownOutlined, QuestionCircleOutlined, UsergroupAddOutlined, UserOutlined} from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
 import { Menu, Dropdown, Button, Space} from 'antd';
-import categories from '../actions/categories'
+import categories from '../../actions/categories'
 import {useDispatch, useSelector} from "react-redux";
-import {RootStateCategoriesPath} from '../redux/reducers/pathReducers'
+import {RootStateCategoriesPath} from '../../redux/reducers/pathReducers'
 
 interface Props{
 }

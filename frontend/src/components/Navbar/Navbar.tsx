@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FunctionComponent, useEffect, useState} from 'react'
 import {Dropdown, Input, Menu, notification, Select} from 'antd'
 import 'antd/dist/antd.css';
-import classes from "../css/navbar.module.css";
+import classes from "./navbar.module.css";
 import {
     PhoneOutlined,
     QuestionCircleOutlined, ShoppingCartOutlined,
@@ -9,17 +9,17 @@ import {
     UserOutlined
 } from "@ant-design/icons";
 import {Link, useNavigate} from "react-router-dom";
-import classesGlobal from "../css/app.module.css";
+import classesGlobal from "../../app.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {RootStateIsLogged} from "../redux/reducers/loginReducers"
-import {setIsLogged} from "../redux/actions/loginActions"
-import auth from '../actions/auth'
-import categories from '../actions/categories'
-import {searchPhrase} from "../redux/actions/searchActions";
-import {RootStateSearchPhrase} from "../redux/reducers/searchReducers";
-import {EntireListOfProductsPage} from "./EntireListOfProdutsPage";
+import {RootStateIsLogged} from "../../redux/reducers/loginReducers"
+import {setIsLogged} from "../../redux/actions/loginActions"
+import auth from '../../actions/auth'
+import categories from '../../actions/categories'
+import {searchPhrase} from "../../redux/actions/searchActions";
+import {RootStateSearchPhrase} from "../../redux/reducers/searchReducers";
+import {EntireListOfProductsPage} from "../wrapers/EntireListOfProdutsPage";
 import {Navigate} from "react-router-dom";
-import {RootStateDesiredPath} from "../redux/reducers/pathReducers";
+import {RootStateDesiredPath} from "../../redux/reducers/pathReducers";
 
 interface Props{
 }

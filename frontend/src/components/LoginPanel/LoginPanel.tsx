@@ -1,15 +1,15 @@
 import React, {FunctionComponent, useState} from 'react'
-import logoClasses from "../css/navbar.module.css";
-import loginClasses from "../css/login.module.css";
-import appClasses from "../css/app.module.css";
+import logoClasses from "../Navbar/navbar.module.css";
+import loginClasses from "./login.module.css";
+import appClasses from "../../app.module.css";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, Input} from 'antd';
-import auth from '../actions/auth'
+import auth from '../../actions/auth'
 import {useDispatch, useSelector} from "react-redux";
-import {setIsLogged} from "../redux/actions/loginActions"
-import {setUserId} from "../redux/actions/userActions"
+import {setIsLogged} from "../../redux/actions/loginActions"
+import {setUserId} from "../../redux/actions/userActions"
 import Cookies from 'universal-cookie';
-import {RootStateDesiredPath} from '../redux/reducers/pathReducers'
+import {RootStateDesiredPath} from '../../redux/reducers/pathReducers'
 
 
 interface Props{

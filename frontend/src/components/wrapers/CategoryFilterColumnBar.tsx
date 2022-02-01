@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react'
-import classesGlobal from "../css/app.module.css"
-import classes from "../css/categoryFilterColumnBar.module.css"
-import { CategoriesMenu } from './CategoriesMenu'
+import classesGlobal from "../../app.module.css"
+import classes from "./categoryFilterColumnBar.module.css"
+import { CategoriesMenu } from '../CategoriesMenu/CategoriesMenu'
 
 interface Props{
     id: number

@@ -1,10 +1,10 @@
 import React, {FunctionComponent, useEffect, useState} from 'react'
-import productClasses from "../css/product.module.css"
+import productClasses from "./product.module.css"
 
 import {Button, Divider} from "antd";
-import {ProductsDetails} from "./ProductDetails";
+import {ProductsDetails} from "./ProductDetails/ProductDetails";
 import {useNavigate} from "react-router-dom";
-import textToURL from "./utility/textToURL";
+import textToURL from "../utility/textToURL";
 
 
 interface Props{

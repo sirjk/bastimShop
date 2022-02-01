@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react'
-import classesGlobal from "../css/app.module.css";
+import classesGlobal from "../../app.module.css";
 
 interface Props{
 }

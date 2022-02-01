@@ -1,32 +1,26 @@
-import React,{useEffect, useState} from 'react';
-import {Navbar} from "./components/Navbar";
-import classes from "./css/app.module.css";
-import {Routes, Route, useNavigate, Navigate} from "react-router-dom";
-import {HomePage} from "./components/HomePage"
-import {LoginPage} from "./components/LoginPanel";
-import {RegisterPanel} from "./components/RegisterPanel";
-import {ShoppingCart} from "./components/ShoppingCart";
-import {Profile} from "./components/Profile";
-import {UpdatePanel} from "./components/UpdatePanel";
-import {OrderDetails} from "./components/OrderDetails";
-import {OrdersPanel} from "./components/OrdersPanel";
-import {Contact} from "./components/Contact";
-import {About} from "./components/About";
-import {CategoriesBar} from "./components/CategoriesBar";
-import { NotFound } from './components/NotFound';
-import {ControlMainPage} from "./components/admin/ControlMainPage";
-import {useDispatch, useSelector} from "react-redux";
-import {RootStateIsLogged} from "./redux/reducers/loginReducers";
-import {NavigationWrapper} from "./components/utility/NavigationWrapper";
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import {setIsLogged} from "./redux/actions/loginActions";
+import React, {useEffect, useState} from 'react';
+import {Navbar} from "./components/Navbar/Navbar";
+import classes from "./app.module.css";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import {HomePage} from "./components/HomePage/HomePage"
+import {LoginPage} from "./components/LoginPanel/LoginPanel";
+import {RegisterPanel} from "./components/RegisterPanel/RegisterPanel";
+import {ShoppingCart} from "./components/ShoppingCart/ShoppingCart";
+import {Profile} from "./components/Profile/Profile";
+import {UpdatePanel} from "./components/UpdatePanel/UpdatePanel";
+import {OrderDetails} from "./components/Orders/OrderDetails/OrderDetails";
+import {OrdersPanel} from "./components/Orders/OrdersPanel";
+import {Contact} from "./components/Contact/Contact";
+import {About} from "./components/About/About";
+import {CategoriesBar} from "./components/CategoriesBar/CategoriesBar";
+import {ControlMainPage} from "./components/Admin/ControlMainPage";
+import {useDispatch} from "react-redux";
+import {NavigationWrapper} from "./components/wrapers/NavigationWrapper";
 import {setCategoriesPathMap} from "./redux/actions/pathActions"
-import auth from "./actions/auth"
-import client from './services/api'
-import {EntireListOfProductsPage} from "./components/EntireListOfProdutsPage"
+import {EntireListOfProductsPage} from "./components/wrapers/EntireListOfProdutsPage"
 import categories from './actions/categories';
-import {ProductsDetails} from "./components/ProductDetails";
-import {useParams} from "react-router";
+import {ProductsDetails} from "./components/Products/ProductDetails/ProductDetails";
+import {NotFound} from "./components/NotFound/NotFound";
 
 interface CategoryInObject{
     id : number,
@@ -107,9 +101,8 @@ function App() {
                     <Route path="/about" element={<NavigationWrapper loginRequired="false"><About/></NavigationWrapper>}/>
                     <Route path="/pr-:name-:id" element={<NavigationWrapper loginRequired="false"><ProductsDetails/></NavigationWrapper>}/>
                     {categoryRoutes}
-                    {/* <Route path="/:category" element={<NavigationWrapper loginRequired="false"><EntireListOfProductsPage id={1}/></NavigationWrapper>}/> */}
 
-                    {/* <Route path="/*" element={<NavigationWrapper loginRequired="false"><NotFound/></NavigationWrapper>}/> */}
+                     <Route path="/*" element={<NavigationWrapper loginRequired="false"><NotFound/></NavigationWrapper>}/>
                 </Routes>
             </div>
         );

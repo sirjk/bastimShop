@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react'
-import classes from "../css/pathbar.module.css";
+import classes from "./pathbar.module.css";
 import {Link} from 'react-router-dom';
 
 interface Props{

@@ -24,17 +24,17 @@ const columns = [
     {
         title: 'Name',
         dataIndex: 'name',
-        render: (text: string) => <Link to={"/admin-"+textToURL(text)}>{text}</Link>,
+        render: (text: string) => <Link to={"/Admin-"+textToURL(text)}>{text}</Link>,
     },
     {
         title: '',
         dataIndex: 'add',
-        render: (text: string) => <Link to={"/admin-"+textToURL(text)}><PlusOutlined/>{text}</Link>,
+        render: (text: string) => <Link to={"/Admin-"+textToURL(text)}><PlusOutlined/>{text}</Link>,
     },
     {
         title: '',
         dataIndex: 'change',
-        render: (text: string) => <Link to={"/admin-"+textToURL(text)}><EditOutlined />{text}</Link>,
+        render: (text: string) => <Link to={"/Admin-"+textToURL(text)}><EditOutlined />{text}</Link>,
     },
 ];
 

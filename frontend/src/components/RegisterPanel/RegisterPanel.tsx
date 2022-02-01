@@ -1,14 +1,14 @@
 import React, {FunctionComponent, useState, useEffect} from 'react'
 import {Link, useNavigate} from "react-router-dom";
-import logoClasses from "../css/navbar.module.css";
-import registerClasses from "../css/register.module.css";
-import appClasses from "../css/app.module.css";
+import logoClasses from "../Navbar/navbar.module.css";
+import registerClasses from "./register.module.css";
+import appClasses from "../../app.module.css";
 import {Button, Checkbox, DatePicker, Input, notification} from "antd";
-import register from '../actions/register'
-import {setIsLogged} from "../redux/actions/loginActions";
+import register from '../../actions/register'
+import {setIsLogged} from "../../redux/actions/loginActions";
 import moment from "moment";
 import {useSelector} from "react-redux";
-import {RootStateDesiredPath} from "../redux/reducers/pathReducers";
+import {RootStateDesiredPath} from "../../redux/reducers/pathReducers";
 
 
 interface Props{

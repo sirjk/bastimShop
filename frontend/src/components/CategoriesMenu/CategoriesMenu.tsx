@@ -1,11 +1,11 @@
 import React, {FunctionComponent, useEffect, useState, useRef} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import { Menu } from 'antd';
-import categories from '../actions/categories'
+import categories from '../../actions/categories'
 import {useDispatch, useSelector} from "react-redux";
-import {RootStateCategoriesPath} from '../redux/reducers/pathReducers'
-import classes from "../css/categoriesMenu.module.css";
-import classesGlobal from "../css/app.module.css";
+import {RootStateCategoriesPath} from '../../redux/reducers/pathReducers'
+import classes from "./categoriesMenu.module.css";
+import classesGlobal from "../../app.module.css";
 import { JsxElement } from 'typescript';
 
 //import { useIsFocused } from '@react-navigation/native'

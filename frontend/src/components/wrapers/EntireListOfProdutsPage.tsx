@@ -1,14 +1,11 @@
-import React, {FunctionComponent, useEffect, useState} from 'react'
+import React, {FunctionComponent} from 'react'
 import 'antd/dist/antd.css';
-import classes from "../css/categorybar.module.css";
-import classesGlobal from "../css/app.module.css";
-import {PhoneOutlined, DownOutlined, QuestionCircleOutlined, UsergroupAddOutlined, UserOutlined} from "@ant-design/icons";
-import {Link, useNavigate, useLocation} from "react-router-dom";
-import { Menu, Dropdown, Button, Space} from 'antd';
-import categories from '../actions/categories'
-import { CategoryFilterColumnBar } from './CategoryFilterColumnBar';
-import { ProductsList } from './ProductsList';
-import { PathBar } from './PathBar';
+import classesGlobal from "../../app.module.css";
+import {useLocation, useNavigate} from "react-router-dom";
+import {Menu} from 'antd';
+import {CategoryFilterColumnBar} from './CategoryFilterColumnBar';
+import {ProductsList} from '../Products/ProductsList';
+import {PathBar} from '../PathBar/PathBar';
 
 interface Props{
     id: number

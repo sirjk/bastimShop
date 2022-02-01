@@ -1,18 +1,18 @@
 import React, {FunctionComponent, useEffect, useState} from 'react'
-import profileClasses from '../css/profile.module.css'
-import appClasses from '../css/app.module.css'
+import profileClasses from './profile.module.css'
+import appClasses from '../../app.module.css'
 import {EditOutlined, EyeOutlined, HistoryOutlined, KeyOutlined, LogoutOutlined} from "@ant-design/icons";
 import {Button, DatePicker, Divider, Input, Menu, notification} from "antd";
 import {useNavigate} from "react-router-dom";
-import registerClasses from "../css/register.module.css";
+import registerClasses from "../RegisterPanel/register.module.css";
 import moment from 'moment';
 import {useDispatch, useSelector} from "react-redux";
 import {useCookies} from "react-cookie";
-import {setIsLogged} from "../redux/actions/loginActions"
-import {isLoggedReducer, RootStateIsLogged} from "../redux/reducers/loginReducers";
-import auth from "../actions/auth";
-import user1 from '../actions/user'
-import {RootStateUserId} from "../redux/reducers/userReducers";
+import {setIsLogged} from "../../redux/actions/loginActions"
+import {isLoggedReducer, RootStateIsLogged} from "../../redux/reducers/loginReducers";
+import auth from "../../actions/auth";
+import user1 from '../../actions/user'
+import {RootStateUserId} from "../../redux/reducers/userReducers";
 
 
 interface Props{

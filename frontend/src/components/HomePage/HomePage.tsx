@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react'
-import classes from "../css/app.module.css"
-import { CategoriesMenu } from './CategoriesMenu'
+import classes from "../../app.module.css"
+import { CategoriesMenu } from '../CategoriesMenu/CategoriesMenu'
 import SimpleImageSlider from "react-simple-image-slider";
 
 interface Props{

@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from 'react'
-import orderClasses from "../css/order.module.css";
+import orderClasses from "./order.module.css";
 import Search from "antd/es/input/Search";
 import {Divider, Select} from "antd";
-import classes from "../css/navbar.module.css";
+import classes from "../Navbar/navbar.module.css";
 import {Link} from "react-router-dom";
 import {useParams} from "react-router-dom";
 

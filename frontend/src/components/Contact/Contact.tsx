@@ -1,8 +1,8 @@
 
 import React, {FunctionComponent} from 'react'
-import classes from "../css/app.module.css";
+import classes from "../../app.module.css";
 //import classesSpefic from "../css/contact.module.css";
-import { PathBar } from './PathBar';
+import { PathBar } from '../PathBar/PathBar';
 
 interface linkList{
     name: string,

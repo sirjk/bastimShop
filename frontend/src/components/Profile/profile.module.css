@@ -10,43 +10,21 @@
 .profile-info-window{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 60%;
     font-size: 25px;
     justify-content: center;
     align-items: center;
     background-color: white;
     border-radius: 5px;
     min-width: 800px;
-    min-height: 400px;
+    min-height: 550px;
     -webkit-box-shadow: 0 0 8px 0 rgb(0 0 0 / 40%);
     -moz-box-shadow: 0 0 8px 0 rgb(0 0 0 / 40%);
     box-shadow: 0 0 8px 0 rgb(0 0 0 / 40%);
     padding: 20px;
+    position: relative;
 }
 
-.profile-info-window-content{
-   display: flex;
-    flex-direction: row;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.data-titles-div{
-    display:flex;
-    flex-direction:column;
-    text-align:end;
-    width: 50%;
-}
-
-.data-div{
-    display:flex;
-    flex-direction:column;
-    text-align:start;
-    margin-left: 50px;
-    width: 50%;
-}
 
 .buttons{
     width: 50%;
@@ -66,12 +44,16 @@
     color: #1890ff;
 }
 
-.edit-text{
-    cursor: pointer;
-    font-size: 15px;
-    letter-spacing: 2px;
-    margin-right: 10px;
-}
+
+
+
+
+
+
+
+
+
+
 
 .cancel-text{
     cursor: pointer;

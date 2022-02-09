@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NoPermissionException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.*;
 
@@ -38,10 +40,11 @@ public class UserController {
             return  new ResponseEntity<User>(userService.getUserById(id, principal), HttpStatus.OK);
         }
         catch(Exception exception) {
+            System.out.println(exception);
             if(exception.getClass() == DoesNotExistException.class)
                 return  new ResponseEntity<String>("User with provided id does not exist", HttpStatus.OK);
             else if(exception.getClass() == NoPermissionException.class){
-                return new ResponseEntity<String>("You do not have required permission to access this resource", HttpStatus.FORBIDDEN);
+                return new ResponseEntity<String>("You do not have required permission to access this resource", HttpStatus.UNAUTHORIZED);
             }
             else
                 return  new ResponseEntity<String>("It shuouldnt occur", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -66,7 +69,31 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable Long id){ return userService.deleteUser(id);}
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> putUser(@PathVariable Long id, @RequestBody User user){ return userService.putUser(id, user);}
+    public ResponseEntity<String> putUser(HttpServletRequest request, HttpServletResponse response,@RequestHeader String password, @PathVariable Long id, @RequestBody User user, Principal principal){
+        //return userService.putUser(id, user);
+        try{
+            String message = userService.putUser(id,user ,principal,password, request, response);
+            ResponseEntity<String> gas;
+
+            if(message.contains("Fail")){
+                return new ResponseEntity<String>(message, HttpStatus.NOT_ACCEPTABLE);
+            }
+            else{
+                return new ResponseEntity<String>(message, HttpStatus.OK);
+            }
+
+        }
+        catch(Exception exception) {
+            System.out.println(exception);
+            if(exception.getClass() == DoesNotExistException.class)
+                return  new ResponseEntity<String>("User with provided id does not exist", HttpStatus.OK);
+            else if(exception.getClass() == NoPermissionException.class){
+                return new ResponseEntity<String>("You do not have required permission to access this resource", HttpStatus.UNAUTHORIZED);
+            }
+            else
+                return  new ResponseEntity<String>("It shuouldnt occur", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
 

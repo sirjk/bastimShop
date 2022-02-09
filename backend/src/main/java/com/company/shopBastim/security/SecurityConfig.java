@@ -2,6 +2,7 @@ package com.company.shopBastim.security;
 
 import com.company.shopBastim.filter.CustomAuthenticationFilter;
 import com.company.shopBastim.filter.CustomAuthorizationFilter;
+import com.company.shopBastim.utility.Initializer;
 import com.company.shopBastim.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.PasswordEncoder; Zmiana w ShopBastimApplication z 2 beanow zmiana na jeden, usuniecie bCryptPasswordEncoder (który zwracał to samo co Password Encoder)
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -31,23 +33,25 @@ import static org.springframework.http.HttpMethod.*;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
+    private Initializer initializer;
 
     @Value("${api-base-endpoint}")
     private String basePath;
 
     @Autowired
-    public SecurityConfig(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
+    public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, UserRepository userRepository, Initializer initializer) {
         this.userDetailsService = userDetailsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.initializer = initializer;
     }
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Bean
@@ -65,7 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), userRepository);
+        //CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), userRepository);
+        CustomAuthenticationFilter customAuthenticationFilter = initializer.returnCustomAuthenticationFilter(authenticationManagerBean(), userRepository);
         customAuthenticationFilter.setFilterProcessesUrl(basePath + "/login");
         http.cors();
         http.csrf().disable();
@@ -77,6 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(DELETE, basePath + "/products/**").hasAnyAuthority("DELETE_PRODUCT");
 
         http.authorizeRequests().antMatchers(GET, basePath + "/users/{accountId:\\d+}").hasAnyAuthority("READ_USER_SELF", "READ_USER");
+        http.authorizeRequests().antMatchers(PUT, basePath + "/users/{accountId:\\d+}").hasAnyAuthority("UPDATE_USER_SELF", "UPDATE_USER");
 
         http.authorizeRequests().antMatchers(POST, basePath + "/users/**").hasAnyAuthority("WRITE_USER");
         http.authorizeRequests().antMatchers(PUT, basePath + "/users/**").hasAnyAuthority("UPDATE_USER");

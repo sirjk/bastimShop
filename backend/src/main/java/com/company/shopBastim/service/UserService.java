@@ -1,6 +1,9 @@
 package com.company.shopBastim.service;
 
 import com.company.shopBastim.exceptions.DoesNotExistException;
+import com.company.shopBastim.exceptions.RefreshTokenMissingException;
+import com.company.shopBastim.exceptions.RefreshTokenTTLBelowOneException;
+import com.company.shopBastim.filter.BlackList;
 import com.company.shopBastim.model.Product;
 import com.company.shopBastim.model.Role;
 import com.company.shopBastim.model.User;
@@ -8,7 +11,10 @@ import com.company.shopBastim.repository.RoleRepository;
 import com.company.shopBastim.repository.UserRepository;
 import com.company.shopBastim.specifications.ProductSpecifications;
 import com.company.shopBastim.specifications.UserSpecifications;
+import com.company.shopBastim.utility.Initializer;
 import com.company.shopBastim.utility.PrepareQueryForDatabase;
+import com.company.shopBastim.utility.RefreshTokenUtility;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,24 +29,34 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 
 @Service
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    //BlackList blackList = BlackList.getInstance();
+    //private RefreshTokenUtility refreshTokenUtility;
+    private Initializer initializer;
 
 
     private final PasswordEncoder passwordEncoder;
     @Autowired
-    public UserService(UserRepository userRepositoryArg, RoleRepository roleRepositoryArg, PasswordEncoder passwordEncoder){
+    public UserService(UserRepository userRepositoryArg, RoleRepository roleRepositoryArg, PasswordEncoder passwordEncoderArg, Initializer initializerArg){
         userRepository = userRepositoryArg;
         roleRepository = roleRepositoryArg;
-        this.passwordEncoder = passwordEncoder;
+        passwordEncoder = passwordEncoderArg;
+        initializer = initializerArg;
     }
 
 
@@ -162,11 +178,12 @@ public class UserService implements UserDetailsService {
 
     public User getUserById(Long id, Principal principal) throws DoesNotExistException, NoPermissionException {
         Optional<User> output = userRepository.findById(id);
-        if(output.isEmpty()){
-            throw new DoesNotExistException("User");
-        }
-        Optional<User> querer = userRepository.findUserByEmail(principal.getName()); // name w principalu to jest email
 
+
+        Optional<User> querer = userRepository.findUserByEmail(principal.getName()); // name w principalu to jest email
+        if(querer.isEmpty()){                   //W przypadku zmiany danych ~
+            throw new NoPermissionException();
+        }
         AtomicReference<Integer> flag = new AtomicReference<>(0);
         querer.get().getRoles().forEach( role -> {
             role.getPermissions().forEach( permission -> {
@@ -175,6 +192,13 @@ public class UserService implements UserDetailsService {
                }
             });
         });
+
+        if(output.isEmpty() && !flag.get().equals(1)){
+            throw new NoPermissionException();          //aby nie dawać uzytkownikowi bez permisji informacji o ilosci uzytkownikow
+        }
+        else if(output.isEmpty()){
+            throw new DoesNotExistException("User");
+        }
 
         if(flag.get().equals(1) || querer.get().getEmail().equals(output.get().getEmail())){
             return output.get();
@@ -250,21 +274,134 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public ResponseEntity<String> putUser(Long id, User user) {
+    public String putUser(Long id, User user, Principal principal, String password,HttpServletRequest request, HttpServletResponse response) throws DoesNotExistException, NoPermissionException  {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
         user.setId(id);
-        if(userOptional.isPresent() && !userOptional.get().getId().equals(user.getId())){
-            return new ResponseEntity<String>("Email taken.", HttpStatus.NOT_ACCEPTABLE);
-        }
 
-        if(user.getEmail()==null) {
-            return new ResponseEntity<String>("cannot put - Email cannot be null.", HttpStatus.OK);
+
+
+        Optional<User> userToBeChanged = userRepository.findById(id);
+
+        Optional<User> querer = userRepository.findUserByEmail(principal.getName()); // name w principalu to jest email
+        if(querer.isEmpty())
+            throw new NoPermissionException();
+
+        AtomicReference<Integer> flag = new AtomicReference<>(0);
+        querer.get().getRoles().forEach( role -> {
+            role.getPermissions().forEach( permission -> {
+                if(permission.getName().equals("READ_USER")){
+                    flag.set(1);
+                }
+            });
+        });
+
+
+
+        if(flag.get().equals(1)){
+            if(userOptional.isPresent() && !userOptional.get().getId().equals(user.getId())){
+                return ("Email taken.");
+            }
+
+
+            if(user.getEmail()==null) {
+                return ("cannot put - Email cannot be null.");
+            }
+            else{
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                userRepository.save(user);
+                return("Put.");
+            }
+        }
+        else if(querer.get().getEmail().equals(userToBeChanged.get().getEmail()) && user.getPassword() == null){
+
+
+            if(!passwordEncoder.matches(password,userToBeChanged.get().getPassword())){
+                return ("Fail: Wrong password.");
+            }
+
+            if(userOptional.isPresent() && !userOptional.get().getId().equals(user.getId())){
+                return ("Fail: Email taken.");
+            }
+            if(user.getEmail()==null) {
+                return "Fail: Email cannot be null.";
+            }
+            if(user.getAddress() == null){
+                return  "Fail: Address cannot be null";
+            }
+            if(user.getBirthDate() == null){
+                return  "Fail: Birth date cannot be null";
+            }
+            if(user.getCity() == null){
+                return  "Fail: City cannot be null";
+            }
+            if(user.getCountry() == null){
+                return  "Fail: Country cannot be null";
+            }
+            if(user.getFirstName() == null){
+                return  "Fail: First name cannot be null";
+            }
+            if(user.getLastName() == null){
+                return  "Fail: Last name cannot be null";
+            }
+            if(user.getPostalAddress() == null){
+                return  "Fail: Postal address name cannot be null";
+            }
+            else{
+
+                user.setPoints(querer.get().getPoints());
+                user.setRoles((Set<Role>)querer.get().getRoles());
+                user.setPassword(querer.get().getPassword());
+
+
+
+                if(!querer.get().getEmail().equals(user.getEmail())){
+                    userRepository.save(user);
+                    try{
+                        RefreshTokenUtility refreshTokenUtility = initializer.returnRefreshTokenUtility(this);
+                        refreshTokenUtility.refreshToken(request, response, user.getEmail());
+                    }
+                    catch (Exception exception){
+                        if(exception.getClass() == RefreshTokenMissingException.class){
+                            System.out.println("Refresh Token missing - because of that token wanst refreshed on email change");
+                        }
+                        else if(exception.getClass() == RefreshTokenTTLBelowOneException.class){
+                            System.out.println("TTL of refresh token below 1 - because of that token wanst refreshed on email change");
+                        }
+                    }
+                }
+                else{
+                    userRepository.save(user);
+                }
+
+
+
+
+                return("Success: Data changed.");
+            }
+        }
+        else if(querer.get().getEmail().equals(userToBeChanged.get().getEmail()) && !(user.getPassword() == null)){
+            if(!passwordEncoder.matches(password,userToBeChanged.get().getPassword())){
+                return ("Fail: Wrong password.");
+            }
+            if(user.getPassword()==null || user.getPassword().length() < 7 || user.getPassword().length() > 50){
+                return  "Fail: Wrong new password.";
+            }
+            else{
+
+                String newPassword = passwordEncoder.encode(user.getPassword());
+                user = querer.get();
+                user.setPassword(newPassword);
+                userRepository.save(user);
+
+                return("Success: Password changed.");
+            }
         }
         else{
-            userRepository.save(user);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return new ResponseEntity<String>("Put.", HttpStatus.OK);
+            throw new NoPermissionException();
         }
+
+
+
     }
 
 

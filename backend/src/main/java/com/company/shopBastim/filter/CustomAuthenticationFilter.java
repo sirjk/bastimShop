@@ -8,6 +8,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.company.shopBastim.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +20,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -28,9 +35,30 @@ import java.util.stream.Collectors;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
+//@PropertySource("classpath:application.properties")
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     BlackList blackList = BlackList.getInstance();
+
+
+    @Value("${refresh-token-TTL:10}")
+    private Integer refreshTokenTTL;
+
+    @Value("${refresh-token-longevity:720}")
+    private Integer refreshTokenLongevity;
+
+    @Value("${refresh-token-dynamic-settings-mode:false}")
+    private Boolean refreshTokenDynamicSettingsMode;
+
+    @Value("${refresh-token-max-longevity:1440}")
+    private Integer refreshTokenMaxLongevity;
+
+    @Value("${refresh-token-min-longevity:60}")
+    private Integer refreshTokenMinLongevity;
+
+    @Value("${refresh-token-decrease-multiplier:0.5}")
+    private Double refreshTokenDecreaseMultiplier;
+
 
 
     private UserRepository userRepository;
@@ -38,6 +66,17 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+    }
+
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, UserRepository userRepository, Integer refreshTokenTTLArgument, Integer refreshTokenLongevityArgument, Boolean refreshTokenDynamicSettingsModeArgument, Integer refreshTokenMaxLongevityArgument, Integer refreshTokenMinLongevityArgument, Double refreshTokenDecreaseMultiplierArgument) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.refreshTokenTTL = refreshTokenTTLArgument;
+        this.refreshTokenLongevity = refreshTokenLongevityArgument;
+        this.refreshTokenDynamicSettingsMode = refreshTokenDynamicSettingsModeArgument;
+        this.refreshTokenMaxLongevity = refreshTokenMaxLongevityArgument;
+        this.refreshTokenMinLongevity = refreshTokenMinLongevityArgument;
+        this.refreshTokenDecreaseMultiplier = refreshTokenDecreaseMultiplierArgument;
     }
 
    //@Autowired
@@ -54,6 +93,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         return authenticationManager.authenticate(authenticationToken);
     }
 
+
+
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User)authentication.getPrincipal();
@@ -64,9 +105,25 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("permissions", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
+
+
+        if(!refreshTokenDynamicSettingsMode){
+            refreshTokenMinLongevity = refreshTokenLongevity;
+            refreshTokenMaxLongevity = refreshTokenLongevity;
+            refreshTokenDecreaseMultiplier = 1.0;
+        }
+
+        if(refreshTokenMinLongevity>refreshTokenLongevity){
+            refreshTokenLongevity = refreshTokenMinLongevity;
+        }
+        if(refreshTokenMaxLongevity<refreshTokenLongevity){
+            refreshTokenLongevity = refreshTokenMaxLongevity;
+        }
+
         String refresh_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30*60*1000))
+                .withClaim("TTL", refreshTokenTTL)
+                .withExpiresAt(new Date(System.currentTimeMillis() + refreshTokenLongevity*60*1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 

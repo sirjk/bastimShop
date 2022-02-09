@@ -4,10 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.company.shopBastim.exceptions.RefreshTokenMissingException;
+import com.company.shopBastim.exceptions.RefreshTokenTTLBelowOneException;
 import com.company.shopBastim.model.User;
 import com.company.shopBastim.repository.UserRepository;
 import com.company.shopBastim.service.SystemService;
 import com.company.shopBastim.service.UserService;
+import com.company.shopBastim.utility.RefreshTokenUtility;
+import com.company.shopBastim.utility.RequestResponseClass;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +22,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Ref;
 import java.util.*;
 
+import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -29,12 +35,14 @@ public class SystemController {
 
     private final UserService userService;
     private final SystemService systemService;
+    private  final RefreshTokenUtility refreshTokenUtility;
 
 
     @Autowired
-    public SystemController(UserService userServiceArg, SystemService systemServiceArg){
+    public SystemController(UserService userServiceArg, SystemService systemServiceArg, RefreshTokenUtility refreshTokenUtilityArg){
         userService = userServiceArg;
         systemService = systemServiceArg;
+        refreshTokenUtility = refreshTokenUtilityArg;
     }
 
 
@@ -45,7 +53,25 @@ public class SystemController {
 
     @PostMapping("api/v1/refresh_token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String authorizationHeader = null;  //It is actually refresh token
+
+       try{
+           RequestResponseClass output = refreshTokenUtility.refreshToken(request, response, null);
+       }
+       catch (Exception exception){
+
+           if(exception.getClass() == RefreshTokenMissingException.class){
+               response.setStatus(NOT_ACCEPTABLE.value());
+               new ObjectMapper().writeValue(response.getOutputStream(), "Error: Refresh Token is missing.");
+           }
+           else if(exception.getClass() == RefreshTokenTTLBelowOneException.class){
+               response.setStatus(NOT_ACCEPTABLE.value());
+               new ObjectMapper().writeValue(response.getOutputStream(), "Error: Refresh Token used too many times - please log in again.");
+           }
+
+       }
+
+
+        /*String authorizationHeader = null;  //It is actually refresh token
         Cookie[] cookies = request.getCookies();
 
         if (cookies != null) {
@@ -127,7 +153,7 @@ public class SystemController {
         }
         else{
             throw new RuntimeException("Refresh token is missing");
-        }
+        }*/
     }
 
     @PostMapping("api/v1/register")

@@ -38,7 +38,7 @@ public class OrderController {
             if(exception.getClass() == DoesNotExistException.class)
                 return  new ResponseEntity<String>("Order with provided id does not exist", HttpStatus.OK);
             else if(exception.getClass() == NoPermissionException.class)
-                return  new ResponseEntity<String>("You do not have required permission to access this resource", HttpStatus.FORBIDDEN);
+                return  new ResponseEntity<String>("You do not have required permission to access this resource", HttpStatus.UNAUTHORIZED);
             else
                 return  new ResponseEntity<String>("It shuouldnt occur", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -57,7 +57,7 @@ public class OrderController {
             }
             catch (Exception exception){
                 if(exception.getClass() == NoPermissionException.class){
-                    return new ResponseEntity<String>("You do not have required permissions.", HttpStatus.FORBIDDEN);
+                    return new ResponseEntity<String>("You do not have required permissions.", HttpStatus.UNAUTHORIZED);
                 }
                 else{
                     return new ResponseEntity<String>("Shouldnt occur.", HttpStatus.INTERNAL_SERVER_ERROR);

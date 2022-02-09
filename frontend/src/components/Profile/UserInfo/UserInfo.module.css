@@ -1,0 +1,64 @@
+.profile-info-window-content{
+   display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+
+.content-left-column,
+.content-right-column{
+    display:flex;
+    flex-direction:column;
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.data{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+}
+
+.user-details{
+    display:flex;
+    flex-direction:column;
+    text-align: end;
+    width: 40%;
+    margin-bottom: 20px;
+}
+
+.user-data{
+    display:flex;
+    flex-direction:column;
+    text-align:start;
+    margin-left: 50px;
+    width: 50%;
+}
+
+.profile-info-window-buttons{
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    position: absolute;
+    top: 20px;
+}
+
+
+.edit-btn,
+.change-password-btn{
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+.edit-btn:hover,
+.change-password-btn:hover{
+    color: #1890ff;
+}

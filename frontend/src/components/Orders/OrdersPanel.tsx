@@ -1,37 +1,48 @@
-import React, {FunctionComponent} from 'react'
+import React, {CSSProperties, FunctionComponent, useEffect, useState} from 'react'
 import orderClasses from "./order.module.css";
 import Search from "antd/es/input/Search";
 import {Divider, Select} from "antd";
-import classes from "../Navbar/navbar.module.css";
 import {Link} from "react-router-dom";
-import {useParams} from "react-router-dom";
+import orders from "../../actions/orders";
 
 interface Props{
 }
 
+
 const { Option } = Select;
 
+function colorStatus(status:string):CSSProperties{
+    if(status === "accepted" || status ==="done"){
+        return {color:"#32CD32"}
+    }
+    else if(status ==="cancelled"){
+        return {color:"red"}
+    }
+    else{
+        return {color:"orange"}
+    }
+}
+
 export const OrdersPanel: FunctionComponent<Props>=(props: Props)=>{
+    const[orderList, setOrderList] = useState<OrderType[]>([]);
+
+
+
+    useEffect(()=>{
+        orders.getAll()
+            .then((response)=>{
+                setOrderList(response.data.content)
+                }
+            )
+            .catch(e=>{
+
+            })
+    },[])
+
 
     interface OrderType {
         "id": number,
-        "productMap": {
-            "10": {
-                "id": number,
-                "product": {
-                    "id": number,
-                    "name": string,
-                    "categoryId": number,
-                    "price": number,
-                    "quantityInStock": number,
-                    "totalQuantitySold": number,
-                    "manufacturer": string,
-                    "description": string,
-                    "specification": string
-                },
-                "quantity": number
-            }
-        },
+        "productMap": any,
         "userId": number,
         "totalCost": number,
         "buyDate": string,
@@ -40,108 +51,7 @@ export const OrdersPanel: FunctionComponent<Props>=(props: Props)=>{
         "orderState": string
     }
 
-    const orders: OrderType[] = [{
-        "id":1,
-        "productMap": {
-            "10": {
-                "id": 1,
-                "product": {
-                    "id": 10,
-                    "name": "Śrubka rx76 paczka 100",
-                    "categoryId": 1,
-                    "price": 1.99,
-                    "quantityInStock": 993,
-                    "totalQuantitySold": 16321,
-                    "manufacturer": "RPA",
-                    "description": "Super wspaniała Śrubka firmy RPA odmieni Twoje życie na lepsze!",
-                    "specification": "{ \"Produkt\": {\"Producent\": \"RPA\"}"
-                },
-                "quantity": 200
-            }
-        },
-        "userId": 1,
-        "totalCost": 200.0,
-        "buyDate": "1999-01-01",
-        "shipmentDate": "2021-01-01",
-        "shipmentState": "complete",
-        "orderState": "complete"
-    },
-    {
-        "id":2,
-        "productMap": {
-            "10": {
-                "id": 1,
-                "product": {
-                    "id": 10,
-                    "name": "Nakrętka rx71 paczka 220",
-                    "categoryId": 1,
-                    "price": 3.99,
-                    "quantityInStock": 993,
-                    "totalQuantitySold": 16321,
-                    "manufacturer": "RPA",
-                    "description": "Super wspaniała Śrubka firmy RPA odmieni Twoje życie na lepsze!",
-                    "specification": "{ \"Produkt\": {\"Producent\": \"RPA\"}"
-                },
-                "quantity": 21
-            }},
-        "userId": 1,
-        "totalCost": 200.0,
-        "buyDate": "1999-01-01",
-        "shipmentDate": "2021-01-01",
-        "shipmentState": "completed",
-        "orderState": "completed"
-    },
-        {
-            "id":3,
-            "productMap": {
-                "10": {
-                    "id": 1,
-                    "product": {
-                        "id": 10,
-                        "name": "Jakieś coś rx71 paczka 220",
-                        "categoryId": 1,
-                        "price": 3.99,
-                        "quantityInStock": 993,
-                        "totalQuantitySold": 16321,
-                        "manufacturer": "RPA",
-                        "description": "Super wspaniała Śrubka firmy RPA odmieni Twoje życie na lepsze!",
-                        "specification": "{ \"Produkt\": {\"Producent\": \"RPA\"}"
-                    },
-                    "quantity": 21
-                }},
-            "userId": 1,
-            "totalCost": 100.0,
-            "buyDate": "2000-01-01",
-            "shipmentDate": "2021-01-01",
-            "shipmentState": "completed",
-            "orderState": "canceled"
-        },
-        {
-            "id":4,
-            "productMap": {
-                "10": {
-                    "id": 1,
-                    "product": {
-                        "id": 10,
-                        "name": "Jakieś coś rx71 paczka 220",
-                        "categoryId": 1,
-                        "price": 3.99,
-                        "quantityInStock": 993,
-                        "totalQuantitySold": 16321,
-                        "manufacturer": "RPA",
-                        "description": "Super wspaniała Śrubka firmy RPA odmieni Twoje życie na lepsze!",
-                        "specification": "{ \"Produkt\": {\"Producent\": \"RPA\"}"
-                    },
-                    "quantity": 21
-                }},
-            "userId": 1,
-            "totalCost": 100.0,
-            "buyDate": "2000-01-01",
-            "shipmentDate": "2021-01-01",
-            "shipmentState": "completed",
-            "orderState": "canceled"
-        },
-    ]
+
 
 
     return(
@@ -162,19 +72,28 @@ export const OrdersPanel: FunctionComponent<Props>=(props: Props)=>{
                 </>
             </div>
 
-            {orders.map((data): any =>{
+            {orderList.map((data): any =>{
                 return(
-                    <div className={orderClasses["order-div"]}>
+                    <div className={orderClasses["order-div"]}  key={data.id}>
                         <div className={orderClasses["order-row-div"]}>
                             <span>DATA KUPNA: {data.buyDate}</span>
-                            <span>STATUS ZAMÓWIENIA: {data.orderState}</span>
+                            <span>STATUS ZAMÓWIENIA: <span style={colorStatus(data.orderState)}>{data.orderState}</span></span>
                         </div>
                         <Divider />
-                        <div className={orderClasses["order-row-div"]}>
-                            <span>{data.productMap["10"].product.name}</span>
-                            <span>{data.productMap["10"].quantity} x {data.productMap["10"].product.price} PLN</span>
-                            <span>CAŁKOWITY KOSZT: {data.totalCost} PLN</span>
-                        </div>
+                        {Object.keys(data.productMap).map((productMapKeys:string)=>{
+                            return(
+                                <div className={orderClasses["order-row-div"]}  key={productMapKeys}>
+                                    <span>{data.productMap[productMapKeys].product.name}</span>
+                                    <span>{data.productMap[productMapKeys].quantity} x {data.productMap[productMapKeys].product.price} PLN</span>
+                                    <span>CAŁKOWITY KOSZT: {data.totalCost} PLN</span>
+                                </div>
+                                )
+                            }
+                        )}
+
+
+
+
                         <span className={orderClasses["order-details"]}>
                             <Link to={"/profile/orders/1"}> {/*tutaj /profile/orders/id -> id bedzie pobierane z api -> useParams()*/}
                                 Szczegóły zamówienia

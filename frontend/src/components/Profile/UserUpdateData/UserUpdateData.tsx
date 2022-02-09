@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react'
+import React, {ChangeEvent, FunctionComponent, useEffect, useState} from 'react'
 import updateDataClasses from "./UserUpdateData.module.css";
 import {Button, DatePicker, Input} from "antd";
 import registerClasses from "../../RegisterPanel/register.module.css";
@@ -26,6 +26,8 @@ interface UserType {
 }
 
 export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
+    const[password, setPassword] = useState<string>("");
+    const[confirmBtnDisabled, setConfirmBtnDisabled] = useState<boolean>(true);
 
     let updatedUser:UserType={
         "id": props.user.id,
@@ -52,6 +54,19 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
         }
         props.changeContent("userInfo")
     }
+
+    const handleOnPasswordInputChange = (e:ChangeEvent<HTMLInputElement>) =>{
+        setPassword(e.target.value);
+    }
+
+    useEffect(()=>{
+        if(password!=''){
+            setConfirmBtnDisabled(false)
+        }
+        else{
+            setConfirmBtnDisabled(true)
+        }
+    },[password])
 
     return(
         <>
@@ -101,7 +116,14 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
                     </div>
                 </div>
             </div>
-            <Button onClick={handleConfirmBtnClick} className={updateDataClasses["confirm-btn"]} type={"primary"}>ZATWIERDŹ ZMIANY</Button>
+            <div className={updateDataClasses["confirm-div"]}>
+                <Input.Password className={updateDataClasses["password-input"]}
+                                onChange={handleOnPasswordInputChange}
+                                placeholder={"Hasło"}
+                />
+                <Button disabled={confirmBtnDisabled} onClick={handleConfirmBtnClick} className={updateDataClasses["confirm-btn"]} type={"primary"}>ZATWIERDŹ ZMIANY</Button>
+            </div>
+
         </>
     )
 }

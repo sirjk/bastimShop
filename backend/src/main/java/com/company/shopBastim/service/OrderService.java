@@ -43,7 +43,7 @@ public class OrderService {
         entityManager = entityManagerArg;
     }
 
-    public Page<Order> getOrders(Map<String, String> params) {
+    public Page<Order> getOrders(Map<String, String> params, Principal principal) throws NoPermissionException {
 
         PrepareQueryForDatabase PQFD = new PrepareQueryForDatabase();
         Pageable pageable = PQFD.setupPegableFromParams(params);
@@ -157,7 +157,32 @@ public class OrderService {
 
         // ========================================== END OF FILTERS SETUP ==========================================
 
-        return orderRepository.findAll(spec, pageable);
+        Optional<User> user = userRepository.findUserByEmail(principal.getName());
+        //Optional<Order> querer = userRepository.findById(principal.getName());
+
+        AtomicReference<Integer> flag = new AtomicReference<>(0);
+        AtomicReference<Integer> flagWriteOrderSelf = new AtomicReference<>(0);
+        user.get().getRoles().forEach( role -> {
+            role.getPermissions().forEach( permission -> {
+                if(permission.getName().equals("WRITE_ORDER")){
+                    flag.set(1);
+                }
+                else if(permission.getName().equals("WRITE_ORDER_SELF")){
+                    flagWriteOrderSelf.set(1);
+                }
+            });
+        });
+
+        if(flag.get().equals(1)){
+            return orderRepository.findAll(spec, pageable);
+        }
+        else if(flagWriteOrderSelf.get().equals(1)){
+            return orderRepository.findUserOrder(user.get().getId(), spec, pageable);
+        }
+        else{
+            throw new NoPermissionException();
+        }
+
     }
 
     public Order getOrderById(Long id, Principal principal) throws DoesNotExistException, NoPermissionException {
@@ -178,7 +203,7 @@ public class OrderService {
 
         boolean a =querer.get().getEmail().equals( userRepository.findById(output.get().getUserId()).get().getEmail() );
 
-        if(flag.get().equals(1) || querer.get().getEmail().equals( userRepository.findById(output.get().getUserId()).get().getEmail() )){
+        if(flag.get().equals(1) || querer.get().getEmail().equals( userRepository.findById(output.get().getUserId()).get().getEmail())){
             return output.get();
         }
         else{
@@ -225,11 +250,12 @@ public class OrderService {
                     Float calculatedTotalCost = 0.0f;
                     Set<Product> updatedProducts = new HashSet<>();
 
-                    for (ProductEntryInOrder productEntryInOrder : order.getProductMap().values()) {
-                        calculatedTotalCost += productRepository.findById(productEntryInOrder.getProduct().getId()).get().getPrice() * (productEntryInOrder.getQuantity());
-                        Product productWithNewQuantity = productRepository.findById(productEntryInOrder.getProduct().getId()).get();
-                        productWithNewQuantity.setQuantityInStock(productWithNewQuantity.getQuantityInStock() - productEntryInOrder.getQuantity());
+                    for (Long key : order.getProductMap().keySet()) {
+                        calculatedTotalCost += productRepository.findById(key).get().getPrice() * (order.getProductMap().get(key).getQuantity());
+                        Product productWithNewQuantity = productRepository.findById(key).get();
+                        productWithNewQuantity.setQuantityInStock(productWithNewQuantity.getQuantityInStock() - order.getProductMap().get(key).getQuantity());
                         updatedProducts.add(productWithNewQuantity);
+                        order.getProductMap().get(key).getProduct().setId(key);
                     }
 
                     productRepository.saveAll(updatedProducts);

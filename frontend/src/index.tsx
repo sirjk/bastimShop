@@ -8,14 +8,15 @@ import { Provider } from 'react-redux';
 import {BrowserRouter} from "react-router-dom";
 import LocaleProvider from "antd/es/locale-provider";
 import plPL from 'antd/lib/locale/pl_PL';
+import {ConfigProvider} from "antd";
 
 ReactDOM.render(
       <Provider store={store}>
-            <LocaleProvider locale={plPL}>
+            <ConfigProvider locale={plPL}>
             <BrowserRouter>
                 <App />
             </BrowserRouter>
-          </LocaleProvider>
+          </ConfigProvider>
       </Provider>,
   document.getElementById('root')
 );

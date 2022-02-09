@@ -95,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers(GET, basePath + "/orders/{accountId:\\d+}").hasAnyAuthority("READ_ORDER_SELF", "READ_ORDER");
 
-        http.authorizeRequests().antMatchers(GET, basePath + "/orders/**").hasAnyAuthority("READ_ORDER");
+        http.authorizeRequests().antMatchers(GET, basePath + "/orders/**").hasAnyAuthority("READ_ORDER", "READ_ORDER_SELF");
         http.authorizeRequests().antMatchers(DELETE, basePath + "/orders/**").hasAnyAuthority("DELETE_ORDER");
         http.authorizeRequests().antMatchers(POST, basePath + "/orders/**").hasAnyAuthority("WRITE_ORDER", "WRITE_ORDER_SELF");
         http.authorizeRequests().antMatchers(PUT, basePath + "/orders/**").hasAnyAuthority("UPDATE_ORDER");

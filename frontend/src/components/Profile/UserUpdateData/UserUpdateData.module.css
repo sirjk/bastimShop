@@ -51,9 +51,21 @@
 
 .confirm-btn{
     display: flex;
-    width: 25%;
+    width: 20%;
     align-self: center;
     justify-content: center;
     letter-spacing: 2px;
-    height: 40px;
+    height: 35px;
+}
+
+.confirm-div{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.password-input{
+    width: 20%;
+    min-width: 200px;
+    margin-right: 20px;
 }

@@ -25,8 +25,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Order>> getAllOrders(@RequestParam Map<String, String> params) {
-        return new ResponseEntity<Page<Order>>(orderService.getOrders(params),HttpStatus.OK);
+    public ResponseEntity<Page<Order>> getAllOrders(@RequestParam Map<String, String> params, Principal principal) throws NoPermissionException {
+        return new ResponseEntity<Page<Order>>(orderService.getOrders(params, principal),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

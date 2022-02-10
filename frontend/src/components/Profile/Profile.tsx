@@ -60,6 +60,10 @@ export const Profile: FunctionComponent<Props>=(props: Props)=>{
 
     //wywylanie zapytania na edpoint /profile/{id} w api aby pobrac dane o userze
     useEffect(()=>{
+       fetchDataFromServer();
+    },[userId])
+
+    function fetchDataFromServer(){
         user1.getById(userId)
         .then((response)=>{
                 setUserData(response.data);
@@ -67,10 +71,11 @@ export const Profile: FunctionComponent<Props>=(props: Props)=>{
         ).catch((e)=>{
 
         })
-    },[userId])
+    }
+
 
     useEffect(()=>{
-        content("userInfo")
+        content("userInfo", false)
     },[userData])
 
 
@@ -91,9 +96,16 @@ export const Profile: FunctionComponent<Props>=(props: Props)=>{
 
     const navigate = useNavigate();
 
-    function content (contentType: string){
+    function content (contentType: string, suckDataFlag: boolean){
         if(contentType==="userInfo"){
-            setComponent(<UserInfo user={userData} changeContent={content}/>)
+            if(suckDataFlag == true)
+            {
+                fetchDataFromServer();
+            }
+            else{
+                setComponent(<UserInfo user={userData} changeContent={content}/>)
+            }
+            
         }
         if(contentType==="changePassword"){
             setComponent(<UserChangePassword changeContent={content}/>)

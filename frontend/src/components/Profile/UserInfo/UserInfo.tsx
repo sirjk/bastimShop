@@ -1,11 +1,11 @@
-import React, {FunctionComponent} from 'react'
+import React, {FunctionComponent, useEffect} from 'react'
 import profileClasses from "./UserInfo.module.css";
 import user from "../../../actions/user";
 import {EditOutlined, KeyOutlined} from "@ant-design/icons";
 
 interface Props{
     user: UserType,
-    changeContent: (contentType: string)=>void
+    changeContent: (contentType: string, suckDataFlag: boolean)=>void
 }
 
 interface UserType {
@@ -26,12 +26,11 @@ export const UserInfo: FunctionComponent<Props>=(props: Props)=>{
 
 
     const editBtnHandleClick = ()=>{
-        props.changeContent("editInfo");
+        props.changeContent("editInfo", false);
     }
     const changePasswordBtnHandleClick = ()=>{
-        props.changeContent("changePassword");
+        props.changeContent("changePassword", false);
     }
-
 
     return(
         <>

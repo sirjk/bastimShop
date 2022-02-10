@@ -5,7 +5,7 @@ import {Button, Input, notification} from "antd";
 import registerClasses from "../../RegisterPanel/register.module.css";
 
 interface Props{
-    changeContent: (contentType: string)=>void
+    changeContent: (contentType: string, suckDataFlag: boolean)=>void
 }
 
 export const UserChangePassword: FunctionComponent<Props>=(props: Props)=>{
@@ -65,7 +65,7 @@ export const UserChangePassword: FunctionComponent<Props>=(props: Props)=>{
 
 
     const handleCancelBtnClick = ()=>{
-        props.changeContent("userInfo")
+        props.changeContent("userInfo", false)
     }
 
     return(

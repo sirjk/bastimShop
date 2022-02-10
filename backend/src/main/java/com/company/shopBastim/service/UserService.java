@@ -307,6 +307,9 @@ public class UserService implements UserDetailsService {
                 return ("cannot put - Email cannot be null.");
             }
             else{
+                if(user.getPassword() == null){
+                    user.setPassword(userToBeChanged.get().getPassword());
+                }
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userRepository.save(user);
                 return("Put.");

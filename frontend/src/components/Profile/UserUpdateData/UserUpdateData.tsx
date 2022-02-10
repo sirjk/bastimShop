@@ -4,10 +4,11 @@ import {Button, DatePicker, Input} from "antd";
 import registerClasses from "../../RegisterPanel/register.module.css";
 import moment from "moment";
 import changePasswordClasses from "../UserChangePassword/UserChangePassword.module.css";
+import user from "../../../actions/user";
 
 interface Props{
     user: UserType,
-    changeContent: (contentType: string)=>void
+    changeContent: (contentType: string, suckDataFlag: boolean)=>void
 }
 
 interface UserType {
@@ -29,7 +30,7 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
     const[password, setPassword] = useState<string>("");
     const[confirmBtnDisabled, setConfirmBtnDisabled] = useState<boolean>(true);
 
-    let updatedUser:UserType={
+    const[updatedUser, setUpdatedUser] = useState<UserType> ({
         "id": props.user.id,
         "firstName": props.user.firstName,
         "lastName": props.user.lastName,
@@ -42,17 +43,25 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
         "address": props.user.address,
         "postalAddress": props.user.postalAddress,
         "roles": props.user.roles,
-    }
+    });
 
     const handleCancelBtnClick = ()=>{
-        props.changeContent("userInfo")
+        props.changeContent("userInfo", false)
     }
 
     const handleConfirmBtnClick = () => {
+        console.log(JSON.stringify(updatedUser));
+        console.log(JSON.stringify(props.user));
         if(JSON.stringify(updatedUser) !== JSON.stringify(props.user)){
-            //PUT METHOD HERE
+            console.log("In1");
+            user.putSelf(updatedUser.id, updatedUser.firstName, updatedUser.lastName, updatedUser.email, updatedUser.birthDate, updatedUser.country, updatedUser.city, updatedUser.address, updatedUser.postalAddress, null, password)
+            .then(() =>{
+                props.changeContent("userInfo", true)
+            }).catch((exception) => {
+                
+            })
         }
-        props.changeContent("userInfo")
+        
     }
 
     const handleOnPasswordInputChange = (e:ChangeEvent<HTMLInputElement>) =>{
@@ -68,6 +77,7 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
         }
     },[password])
 
+
     return(
         <>
             <div className={updateDataClasses["cancel-button"]}>
@@ -79,19 +89,38 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
                 <div className={updateDataClasses["content-left-column"]}>
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>IMIĘ</div>
-                        <Input onChange={(e)=>updatedUser.firstName=e.target.value} className={updateDataClasses["input"]} defaultValue={props.user.firstName} placeholder={"Imie"}/>
+                        <Input 
+                        onChange={(e)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.firstName = e.target.value;
+                            setUpdatedUser(newUserType);
+                        }}
+                         className={updateDataClasses["input"]} defaultValue={props.user.firstName} placeholder={"Imie"}/>
                     </div>
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>NAZWISKO</div>
-                        <Input onChange={(e)=>updatedUser.lastName=e.target.value} className={updateDataClasses["input"]} defaultValue={props.user.lastName} placeholder={"Nazwisko"}/>
+                        <Input onChange={(e)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.lastName = e.target.value;
+                            setUpdatedUser(newUserType);
+                        }} className={updateDataClasses["input"]} defaultValue={props.user.lastName} placeholder={"Nazwisko"}/>
                     </div>
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>E-MAIL</div>
-                        <Input onChange={(e)=>updatedUser.email=e.target.value} className={updateDataClasses["input"]} defaultValue={props.user.email} placeholder={"E-mail"}/>
+                        <Input onChange={(e)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.email = e.target.value;
+                            setUpdatedUser(newUserType);
+                        }} className={updateDataClasses["input"]} defaultValue={props.user.email} placeholder={"E-mail"}/>
                     </div>
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>DATA URODZENIA</div>
-                        <DatePicker onChange={(date, dateString) => updatedUser.birthDate=dateString} className={updateDataClasses["input"]} defaultValue={moment(props.user.birthDate, 'YYYY-MM-DD')} placeholder={"Data urodzenia"}/>
+                        <DatePicker 
+                            onChange={(date, dateString)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.birthDate = dateString;
+                            setUpdatedUser(newUserType);
+                        }} className={updateDataClasses["input"]} defaultValue={moment(props.user.birthDate, 'YYYY-MM-DD')} placeholder={"Data urodzenia"}/>
                     </div>
 
 
@@ -100,19 +129,35 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
 
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>KRAJ</div>
-                        <Input onChange={(e)=>updatedUser.country=e.target.value} className={updateDataClasses["input"]} defaultValue={props.user.country} placeholder={"Kraj"}/>
+                        <Input onChange={(e)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.country = e.target.value;
+                            setUpdatedUser(newUserType);
+                        }} className={updateDataClasses["input"]} defaultValue={props.user.country} placeholder={"Kraj"}/>
                     </div>
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>MIASTO</div>
-                        <Input onChange={(e)=>updatedUser.city=e.target.value} className={updateDataClasses["input"]} defaultValue={props.user.city} placeholder={"Miasto"}/>
+                        <Input onChange={(e)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.city = e.target.value;
+                            setUpdatedUser(newUserType);
+                        }} className={updateDataClasses["input"]} defaultValue={props.user.city} placeholder={"Miasto"}/>
                     </div>
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>ADRES</div>
-                        <Input onChange={(e)=>updatedUser.address=e.target.value} className={updateDataClasses["input"]} defaultValue={props.user.address} placeholder={"Adres"}/>
+                        <Input onChange={(e)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.address = e.target.value;
+                            setUpdatedUser(newUserType);
+                        }} className={updateDataClasses["input"]} defaultValue={props.user.address} placeholder={"Adres"}/>
                     </div>
                     <div className={updateDataClasses.data}>
                         <div className={updateDataClasses["user-details"]}>KOD POCZTOWY</div>
-                        <Input onChange={(e)=>updatedUser.postalAddress=e.target.value} className={updateDataClasses["input"]} defaultValue={props.user.postalAddress} placeholder={"Kod pocztowy"}/>
+                        <Input onChange={(e)=>{ 
+                            let newUserType:UserType = updatedUser;
+                            newUserType.postalAddress = e.target.value;
+                            setUpdatedUser(newUserType);
+                        }} className={updateDataClasses["input"]} defaultValue={props.user.postalAddress} placeholder={"Kod pocztowy"}/>
                     </div>
                 </div>
             </div>

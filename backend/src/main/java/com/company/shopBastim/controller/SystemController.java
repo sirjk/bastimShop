@@ -160,6 +160,7 @@ public class SystemController {
     public ResponseEntity<String> postUser(@RequestBody User user){
         String message = systemService.registerUser(user);
         if(message.startsWith("Fail")){
+            message = message.substring(5);
             return new ResponseEntity<String>(message, HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity<String>(message, HttpStatus.OK);

@@ -70,8 +70,10 @@ export const RegisterPanel: FunctionComponent<Props>=(props: Props)=>{
     }
 
     useEffect(()=>{
-        if (registerErrorMsg!=='')
+        if (registerErrorMsg!=='') {
             registerErrorNotification();
+            setRegisterErrorMsg('')
+        }
     },[registerErrorMsg])
 
 
@@ -89,13 +91,13 @@ export const RegisterPanel: FunctionComponent<Props>=(props: Props)=>{
 
     function registenBtnHandler(){
         register.register(firstName,lastName,email,password,address,birthDate,city,country,postalAddress).then(
-            () =>{
+            (response) =>{
                // let temp = cookies.get('is_logged_in')
                 // console.log(cookies.isLoggedIn.value)
                 //dispatch(setIsLogged(temp));
                 navigate(whereToNavigate)
             }
-        ).catch(() => setRegisterErrorMsg("Nie udało się zarejestrowć"))
+        ).catch((e) => setRegisterErrorMsg(`Nie udało się zarejestrowć. ${e.response.data}`))
     }
 
 

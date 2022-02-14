@@ -18,7 +18,10 @@ export const NavigationWrapper: FunctionComponent<Props>=(props: Props)=>{
 
     const dispatch = useDispatch()
     const isSomebodyLogged = useSelector((state:RootStateIsLogged) => state.isLogged);
-    dispatch(setDesiredPath(window.location.pathname))
+    useEffect(()=>{
+        dispatch(setDesiredPath(window.location.pathname))
+    }, [])
+   
     
 
 

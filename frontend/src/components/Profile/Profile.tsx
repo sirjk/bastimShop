@@ -68,7 +68,6 @@ export const Profile: FunctionComponent<Props>=(props: Props)=>{
         user1.getById(userId)
         .then((response)=>{
                 setUserData(response.data);
-                console.log("1", userData)
             }
         )
         .catch((e)=>{

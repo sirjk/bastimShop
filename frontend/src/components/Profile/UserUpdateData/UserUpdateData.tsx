@@ -50,8 +50,6 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
     }
 
     const handleConfirmBtnClick = () => {
-        console.log(JSON.stringify(updatedUser));
-        console.log(JSON.stringify(props.user));
         if(JSON.stringify(updatedUser) !== JSON.stringify(props.user)){
             user.putSelf(updatedUser.id, updatedUser.firstName, updatedUser.lastName, updatedUser.email, updatedUser.birthDate, updatedUser.country, updatedUser.city, updatedUser.address, updatedUser.postalAddress, null, password)
             .then(() =>{

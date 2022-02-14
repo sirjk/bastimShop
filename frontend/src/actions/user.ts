@@ -3,7 +3,7 @@ import client from '../services/api'
 const user = {
 
     getById: (id:number) => client.get(`/users/${id}`),
-    putSelf: (id:number, firstName:string, lastName:string, email:string, birthDate:string, country:string, city:string, address: string, postalAddress: string, newPassword:string|null, oldPassword:string) => client.put(`/users/${id}`,{
+    putSelf: (id:number|null, firstName:string|null, lastName:string|null, email:string|null, birthDate:string|null, country:string|null, city:string|null, address: string|null, postalAddress: string|null, newPassword:string|null, oldPassword:string) => client.put(`/users/${id}`,{
     "firstName": firstName,
     "lastName": lastName,
     "email": email,

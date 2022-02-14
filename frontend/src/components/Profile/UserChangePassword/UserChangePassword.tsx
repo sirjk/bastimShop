@@ -3,6 +3,10 @@ import changePasswordClasses from "./UserChangePassword.module.css";
 import profileClasses from "../profile.module.css";
 import {Button, Input, notification} from "antd";
 import registerClasses from "../../RegisterPanel/register.module.css";
+import user from "../../../actions/user";
+import Cookies from 'universal-cookie';
+import { useSelector } from 'react-redux';
+import { RootStateUserId } from "../../../redux/reducers/userReducers";
 
 interface Props{
     changeContent: (contentType: string, suckDataFlag: boolean)=>void
@@ -16,6 +20,7 @@ export const UserChangePassword: FunctionComponent<Props>=(props: Props)=>{
     const [passwordStyle, setPasswordStyle] = useState<Object>( {});
     const [buttonDisabled, setButtonDisabled] = useState<boolean>( true);
 
+   const userId = useSelector((state: RootStateUserId)=> state.userId)
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -68,6 +73,18 @@ export const UserChangePassword: FunctionComponent<Props>=(props: Props)=>{
         props.changeContent("userInfo", false)
     }
 
+    const handleConfirmBtnClick = () => {
+        
+        user.putSelf(userId, null, null, null, null, null, null, null, null, newPassword, oldPassword)
+        .then(() =>{
+            props.changeContent("userInfo", true)
+        }).catch((exception) => {
+            
+        })
+
+        
+    }
+
     return(
         <>
             <div className={changePasswordClasses.buttons}>
@@ -99,7 +116,7 @@ export const UserChangePassword: FunctionComponent<Props>=(props: Props)=>{
                                     placeholder={"Stare Hasło"}
                     />
                 </div>
-                <Button disabled={buttonDisabled} className={changePasswordClasses["confirm-btn"]} type={"primary"}>ZATWIERDŹ ZMIANY</Button>
+                <Button disabled={buttonDisabled} onClick={handleConfirmBtnClick} className={changePasswordClasses["confirm-btn"]} type={"primary"}>ZATWIERDŹ ZMIANY</Button>
 
 
             </div>

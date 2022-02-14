@@ -1,25 +1,17 @@
-import React, {ChangeEvent, FunctionComponent, useEffect, useState} from 'react'
+import React, {FunctionComponent, useEffect, useState} from 'react'
 import {Dropdown, Input, Menu, notification, Select} from 'antd'
 import 'antd/dist/antd.css';
 import classes from "./navbar.module.css";
-import {
-    PhoneOutlined,
-    QuestionCircleOutlined, ShoppingCartOutlined,
-    UsergroupAddOutlined,
-    UserOutlined
-} from "@ant-design/icons";
-import {Link, useNavigate} from "react-router-dom";
-import classesGlobal from "../../app.module.css";
+import {QuestionCircleOutlined, ShoppingCartOutlined, UsergroupAddOutlined, UserOutlined} from "@ant-design/icons";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStateIsLogged} from "../../redux/reducers/loginReducers"
 import {setIsLogged} from "../../redux/actions/loginActions"
 import auth from '../../actions/auth'
 import categories from '../../actions/categories'
 import {searchPhrase} from "../../redux/actions/searchActions";
-import {RootStateSearchPhrase} from "../../redux/reducers/searchReducers";
-import {EntireListOfProductsPage} from "../wrapers/EntireListOfProdutsPage";
-import {Navigate} from "react-router-dom";
 import {RootStateDesiredPath} from "../../redux/reducers/pathReducers";
+import Cookies from 'universal-cookie';
 
 interface Props{
 }
@@ -38,6 +30,7 @@ const isSomebodyLogged = useSelector((state:RootStateIsLogged) => state.isLogged
 const [logoutErrorMsg, setLogoutErrorMsg] = useState('');
 const [searchPhrase_, setSearchPhrase_] = useState('');
 
+    const cookies = new Cookies();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -114,6 +107,9 @@ const [searchPhrase_, setSearchPhrase_] = useState('');
                             (response1)=>{
                                // console.log(response1.headers)
                                 dispatch(setIsLogged("false"));
+                                cookies.set("is_logged", "false");
+                                cookies.set("refresh_token", "logged_out");
+                                cookies.set("access_token", "logged_out");
                                 navigate("/");
                             }
                         ).catch((e) => {

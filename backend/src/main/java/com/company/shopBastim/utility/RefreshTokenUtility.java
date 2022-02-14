@@ -157,16 +157,18 @@ public class RefreshTokenUtility {
                 cookie_refresh.setHttpOnly(true);
                 cookie_refresh.setPath("/");
 
-
-
                 Cookie user_id = new Cookie("user_id", user.getId().toString());
                 user_id.setHttpOnly(false);
-
                 user_id.setPath("/");
+
+                Cookie isLogged = new Cookie("is_logged", "true");
+                isLogged.setHttpOnly(false);
+                isLogged.setPath("/");
 
                 response.addCookie(cookie_access);
                 response.addCookie(cookie_refresh);
                 response.addCookie(user_id);
+                response.addCookie(isLogged);
 
                 response.setContentType(APPLICATION_JSON_VALUE);
                 if(subject == null)

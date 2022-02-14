@@ -2,6 +2,7 @@ import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
 import auth from "../actions/auth";
 import {setIsLogged} from "../redux/actions/loginActions";
 import store from '../redux/store';
+import Cookies from "universal-cookie";
 
 const instance = axios.create({
     baseURL: 'http://localhost:8080/api/v1',
@@ -17,10 +18,14 @@ instance.interceptors.response.use(function (response) {
     //console.log(error.response)
     //console.log(error.request)
     //console.log(error.response.data.message)
+    const cookies = new Cookies();
     let heresy: any = error;
      if(error.response.status === 401 /*&& error.response.data.error_message ==="Refresh token expired"*/){
         //dispatch(setIsLogged("false"));
          store.dispatch(setIsLogged("false"))
+         cookies.set("is_logged", "false");
+         cookies.set("refresh_token", "logged_out");
+         cookies.set("access_token", "logged_out");
          //console.log("ASDDDDDDDDDDDDDDDDDD")
         // return Promise.reject(error);
      }

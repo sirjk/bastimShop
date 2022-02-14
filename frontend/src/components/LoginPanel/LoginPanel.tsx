@@ -32,6 +32,7 @@ export const LoginPage: FunctionComponent<Props>=(props: Props)=>{
         auth.login(email, password).then(
             () =>{
                dispatch(setIsLogged("true"));
+               cookies.set("is_logged", "true");
                let userId = cookies.get('user_id')
                 dispatch(setUserId(userId))
                navigate(whereToNavigate);

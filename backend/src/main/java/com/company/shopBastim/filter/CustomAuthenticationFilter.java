@@ -176,6 +176,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
         user_id.setPath("/");
 
+        Cookie isLogged = new Cookie("is_logged", "true");
+        isLogged.setHttpOnly(false);
+        isLogged.setPath("/");
+
+
+
+        response.addCookie(isLogged);
         response.addCookie(cookie_access);
         response.addCookie(cookie_refresh);
         response.addCookie(user_id);

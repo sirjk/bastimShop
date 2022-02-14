@@ -16,6 +16,7 @@ import {RootStateUserId} from "../../redux/reducers/userReducers";
 import {UserInfo} from "./UserInfo/UserInfo";
 import {UserChangePassword} from "./UserChangePassword/UserChangePassword";
 import {UserUpdateData} from "./UserUpdateData/UserUpdateData";
+import Cookies from "universal-cookie";
 
 
 interface Props{
@@ -63,17 +64,23 @@ export const Profile: FunctionComponent<Props>=(props: Props)=>{
         user1.getById(userId)
         .then((response)=>{
                 setUserData(response.data);
+                console.log("1", userData)
             }
-        ).catch((e)=>{
+        )
+        .catch((e)=>{
 
+        })
+        .finally(()=>{
+            content("userInfo")
+            console.log("12",userData)
         })
     },[userId])
 
-    useEffect(()=>{
-        content("userInfo")
-    },[userData])
+    //useEffect(()=>{
+    //
+    //},[userData])
 
-
+    const cookies = new Cookies();
 
     const dispatch = useDispatch();
     //wysyłanie zapytania na endpoint /logout w api zeby sie wylogowac
@@ -81,6 +88,9 @@ export const Profile: FunctionComponent<Props>=(props: Props)=>{
         auth.logout().then(
             ()=>{
                 dispatch(setIsLogged("false"));
+                cookies.set("is_logged", "false");
+                cookies.set("refresh_token", "logged_out");
+                cookies.set("access_token", "logged_out");
                 navigate("/");
             }
         ).catch(() => {

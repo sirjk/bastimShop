@@ -27,7 +27,7 @@ interface UserType {
 
 export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
     const[password, setPassword] = useState<string>("");
-    const[confirmBtnDisabled, setConfirmBtnDisabled] = useState<boolean>(true);
+    const[confirmBtnDisabled, setConfirmBtnDisabled] = useState<boolean>(false);
 
     let updatedUser:UserType={
         "id": props.user.id,
@@ -50,6 +50,7 @@ export const UserUpdateData: FunctionComponent<Props>=(props: Props)=>{
 
     const handleConfirmBtnClick = () => {
         if(JSON.stringify(updatedUser) !== JSON.stringify(props.user)){
+            console.log("ASDASDASD")
             //PUT METHOD HERE
         }
         props.changeContent("userInfo")

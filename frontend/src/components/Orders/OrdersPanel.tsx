@@ -4,6 +4,7 @@ import Search from "antd/es/input/Search";
 import {Divider, Select} from "antd";
 import {Link} from "react-router-dom";
 import orders from "../../actions/orders";
+import {OrderDetails} from "./OrderDetails/OrderDetails";
 
 interface Props{
 }
@@ -95,7 +96,7 @@ export const OrdersPanel: FunctionComponent<Props>=(props: Props)=>{
 
 
                         <span className={orderClasses["order-details"]}>
-                            <Link to={"/profile/orders/1"}> {/*tutaj /profile/orders/id -> id bedzie pobierane z api -> useParams()*/}
+                            <Link to={`/profile/orders/${data.id}`}> {/*tutaj /profile/orders/id -> id bedzie pobierane z api -> useParams()*/}
                                 Szczegóły zamówienia
                             </Link>
                         </span>

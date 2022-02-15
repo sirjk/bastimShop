@@ -246,6 +246,7 @@ public class OrderService {
                     order.setShipmentDate(null);
                     order.setShipmentState(ShipmentState.processing);
                     order.setUserId(querer.get().getId());
+                    order.setTrackingNumber(null);
 
                     Float calculatedTotalCost = 0.0f;
                     Set<Product> updatedProducts = new HashSet<>();

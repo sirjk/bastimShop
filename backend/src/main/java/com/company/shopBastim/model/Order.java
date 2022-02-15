@@ -27,9 +27,10 @@ public class Order {
     private LocalDate shipmentDate;
     private ShipmentState shipmentState;
     private OrderState orderState;
+    private Long trackingNumber;
 
 
-    public Order(Long id, Long userId, Map<Long, ProductEntryInOrder> productMap, Float totalCost, LocalDate buyDate, LocalDate shipmentDate, ShipmentState shipmentState, OrderState orderState) {
+    public Order(Long id, Long userId, Map<Long, ProductEntryInOrder> productMap, Float totalCost, LocalDate buyDate, LocalDate shipmentDate, ShipmentState shipmentState, OrderState orderState, Long trackingNumber) {
         this.id = id;
         this.userId = userId;
         this.productMap = productMap;
@@ -38,9 +39,11 @@ public class Order {
         this.shipmentDate = shipmentDate;
         this.shipmentState = shipmentState;
         this.orderState = orderState;
+        this.trackingNumber = trackingNumber;
     }
 
-    public Order( Long userId, Map<Long, ProductEntryInOrder> productMap, Float totalCost, LocalDate buyDate, LocalDate shipmentDate, ShipmentState shipmentState, OrderState orderState) {
+
+    public Order(Long userId, Map<Long, ProductEntryInOrder> productMap, Float totalCost, LocalDate buyDate, LocalDate shipmentDate, ShipmentState shipmentState, OrderState orderState, Long trackingNumber) {
         this.userId = userId;
         this.productMap = productMap;
         this.totalCost = totalCost;
@@ -48,6 +51,7 @@ public class Order {
         this.shipmentDate = shipmentDate;
         this.shipmentState = shipmentState;
         this.orderState = orderState;
+        this.trackingNumber=trackingNumber;
     }
 
     public Order() {
@@ -118,7 +122,13 @@ public class Order {
         this.shipmentState = shipmentState;
     }
 
+    public Long getTrackingNumber() {
+        return trackingNumber;
+    }
 
+    public void setTrackingNumber(Long trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
 
 
 

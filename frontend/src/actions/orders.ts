@@ -5,6 +5,9 @@ const orders = {
         return (client.get("/orders")
         )
     },
+    getPeculiarOrder: (id: string | undefined)=>{
+        return(client.get(`/orders/${id}`))
+    }
 
 }
 

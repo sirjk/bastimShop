@@ -8,7 +8,7 @@ if(isLoggedCookie == undefined){
 }
 
 
-export const isLoggedReducer = (state = isLoggedCookie, action:AnyAction) => {
+export const isLoggedReducer = (state : string[] = isLoggedCookie, action:AnyAction) => { //No clue why the array works here, but ordinary string does not
     switch (action.type){
         case 'SET_IS_LOGGED':
             return action.payload

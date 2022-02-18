@@ -121,14 +121,16 @@ insert into ROLES_PERMISSIONS values (3,20);
 										
 insert into ROLES_PERMISSIONS values (3,22);
 
+insert into ROLES_PERMISSIONS values (3,7);
+
 
 
 
 -- USERS --
-insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address) VALUES ("Dluga 10", "2000-10-19",  "Krakow", "Polska", "kowalski@gmail.com","Janusz", "Kowalski", "$2a$10$8tEHH/2cCq72qLW.dJgjeepRQi9XW4BbEJgItzn71uQmwXaY./Qtu",  1000, "32-002"); -- password: admin123--
-insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address) VALUES ("Malborska 12", "2000-12-14",  "Warszawa", "Polska", "zibon@gmail.com","Piotr", "Zibon", "$2a$10$GZXCZw2haZ/lwkGz.vpqvOJvcc/S89u6yv53tdUXEXioPfCqVJOcu",  0, "30-001"); -- password: 1234--
-insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address) VALUES ("Wroclawska 126a", "1998-03-16",  "Poznan", "Polska", "wolinski@gmail.com","Jakub", "Wolinski", "$2a$10$4xgelx/smcosrWbtehdlDuZrF43vzJXWfFLbAgsGrtkTodbsnuyn.",  0, "35-051"); -- password: wolin0101--
-insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address) VALUES ("Szkolna 152c", "1993-04-16",  "Krakow", "Polska", "frankowski10@gmail.com","Bartosz", "Frankowski", "$2a$10$0kGMozHuckcqucOnsEDOJuYPvPDWVdvSWXpnD2zcqtBT4d7XNIxA.",  0, "35-051"); -- password: fajnehaslo--
+insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address,state) VALUES ("Dluga 10", "2000-10-19",  "Krakow", "Polska", "kowalski@gmail.com","Janusz", "Kowalski", "$2a$10$8tEHH/2cCq72qLW.dJgjeepRQi9XW4BbEJgItzn71uQmwXaY./Qtu",  1000, "32-002","active"); -- password: admin123--
+insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address,state) VALUES ("Malborska 12", "2000-12-14",  "Warszawa", "Polska", "zibon@gmail.com","Piotr", "Zibon", "$2a$10$GZXCZw2haZ/lwkGz.vpqvOJvcc/S89u6yv53tdUXEXioPfCqVJOcu",  0, "30-001","active"); -- password: 1234--
+insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address,state) VALUES ("Wroclawska 126a", "1998-03-16",  "Poznan", "Polska", "wolinski@gmail.com","Jakub", "Wolinski", "$2a$10$4xgelx/smcosrWbtehdlDuZrF43vzJXWfFLbAgsGrtkTodbsnuyn.",  0, "35-051","active"); -- password: wolin0101--
+insert into users (address, birth_date, city, country, email, first_name, last_name, password, points, postal_address,state) VALUES ("Szkolna 152c", "1993-04-16",  "Krakow", "Polska", "frankowski10@gmail.com","Bartosz", "Frankowski", "$2a$10$0kGMozHuckcqucOnsEDOJuYPvPDWVdvSWXpnD2zcqtBT4d7XNIxA.",  0, "35-051","active"); -- password: fajnehaslo--
 
 
 -- USER ROELS --

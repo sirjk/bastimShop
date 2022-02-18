@@ -83,11 +83,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers(GET, basePath + "/users/{accountId:\\d+}").hasAnyAuthority("READ_USER_SELF", "READ_USER");
         http.authorizeRequests().antMatchers(PUT, basePath + "/users/{accountId:\\d+}").hasAnyAuthority("UPDATE_USER_SELF", "UPDATE_USER");
+        http.authorizeRequests().antMatchers(DELETE, basePath + "/users/{accountId:\\d+}").hasAnyAuthority("DELETE_USER", "DELETE_USER_SELF");
 
         http.authorizeRequests().antMatchers(POST, basePath + "/users/**").hasAnyAuthority("WRITE_USER");
         http.authorizeRequests().antMatchers(PUT, basePath + "/users/**").hasAnyAuthority("UPDATE_USER");
         http.authorizeRequests().antMatchers(GET, basePath + "/users/**").hasAnyAuthority("READ_USER");
-        http.authorizeRequests().antMatchers(DELETE, basePath + "/users/**").hasAnyAuthority("DELETE_USER");
+        http.authorizeRequests().antMatchers(DELETE, basePath + "/users/**").hasAnyAuthority("DELETE_USER", "DELETE_USER_SELF");
+
 
         http.authorizeRequests().antMatchers(GET, basePath + "/permissions/**").hasAnyAuthority("READ_PERMISSION");
         http.authorizeRequests().antMatchers(DELETE, basePath + "/permissions/**").hasAnyAuthority("DELETE_PERMISSION");

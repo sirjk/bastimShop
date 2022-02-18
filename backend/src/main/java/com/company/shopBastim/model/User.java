@@ -1,5 +1,7 @@
 package com.company.shopBastim.model;
 
+import com.company.shopBastim.enums.UserState;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -22,6 +24,9 @@ public class User {
     private String city;
     private String address;
     private String postalAddress;
+    @Enumerated(EnumType.STRING)
+    private UserState state;
+
 
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -30,7 +35,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, LocalDate birthDate, Integer points, String password, String country, String city, String address, String postalAddress, Set<Role> roles) {
+    public User(Long id, String firstName, String lastName, String email, LocalDate birthDate, Integer points, String password, String country, String city, String address, String postalAddress, Set<Role> roles,UserState state) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,9 +48,10 @@ public class User {
         this.address = address;
         this.postalAddress = postalAddress;
         this.roles = roles;
+        this.state=state;
     }
 
-    public User(String firstName, String lastName, String email, LocalDate birthDate, Integer points, String password, String country, String city, String address, String postalAddress, Set<Role> roles) {
+    public User(String firstName, String lastName, String email, LocalDate birthDate, Integer points, String password, String country, String city, String address, String postalAddress, Set<Role> roles,UserState state) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -57,6 +63,16 @@ public class User {
         this.address = address;
         this.postalAddress = postalAddress;
         this.roles = roles;
+        this.state=state;
+    }
+
+
+    public UserState getState() {
+        return state;
+    }
+
+    public void setState(UserState state) {
+        this.state = state;
     }
 
     public String getLastName() {

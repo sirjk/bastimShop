@@ -17,6 +17,8 @@ import {UserInfo} from "./UserInfo/UserInfo";
 import {UserChangePassword} from "./UserChangePassword/UserChangePassword";
 import {UserUpdateData} from "./UserUpdateData/UserUpdateData";
 import Cookies from "universal-cookie";
+import classesGlobal from "../../app.module.css";
+import {PathBar} from "../PathBar/PathBar";
 
 
 interface Props{
@@ -122,19 +124,27 @@ export const Profile: FunctionComponent<Props>=(props: Props)=>{
         }
     }
 
+    interface linkList{
+        name: string,
+        url: string
+    }
+    const pathList : linkList[] = [{"name": "Bastim", "url": "/"}, {"name": "Profil", "url": ``}];
 
     return(
-        <div className={profileClasses["profile-window"]}>
-            <div className={profileClasses.buttons}>
-                <div className={profileClasses.button} onClick={() => {navigate("/profile/orders/")}}><HistoryOutlined /><span style={{marginLeft:"30px"}}>HISTORIA ZAMÓWIEŃ</span></div>
-                <div className={profileClasses.button} onClick={logoutBtnHandler}><LogoutOutlined /><span style={{marginLeft:"30px"}}>WYLOGUJ</span></div>
-            </div>
+        <div className={classesGlobal.page}>
+            <PathBar pathList={pathList}/>
+            <div className={profileClasses["profile-window"]}>
+                <div className={profileClasses.buttons}>
+                    <div className={profileClasses.button} onClick={() => {navigate("/profile/orders/")}}><HistoryOutlined /><span style={{marginLeft:"30px"}}>HISTORIA ZAMÓWIEŃ</span></div>
+                    <div className={profileClasses.button} onClick={logoutBtnHandler}><LogoutOutlined /><span style={{marginLeft:"30px"}}>WYLOGUJ</span></div>
+                </div>
 
-            <div className={profileClasses["profile-info-window"]}>
-                {component}
-            </div>
+                <div className={profileClasses["profile-info-window"]}>
+                    {component}
+                </div>
 
-            <span style={{fontSize:"35px"}}>TWOJE PUNKTY: {userData.points}</span>
+                <span style={{fontSize:"35px"}}>TWOJE PUNKTY: {userData.points}</span>
+            </div>
         </div>
     )
 }

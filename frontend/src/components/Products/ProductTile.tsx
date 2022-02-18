@@ -5,6 +5,9 @@ import {Button, Divider} from "antd";
 import {ProductsDetails} from "./ProductDetails/ProductDetails";
 import {useNavigate} from "react-router-dom";
 import textToURL from "../utility/textToURL";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategoryPath} from "../../redux/actions/pathActions";
+import {RootStateDesiredPath} from "../../redux/reducers/pathReducers";
 
 
 interface Props{
@@ -29,12 +32,14 @@ export const ProductTile: FunctionComponent<Props>=(props: Props)=>{
     //const [productsList, setProductsList] = useState<ProductType[]>([]);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-
+    const actualPath = useSelector((state:RootStateDesiredPath) => state.desiredPath);
 
     return(
         <>
             <div className={productClasses["product-tile"]} onClick={()=>{
+                dispatch(setCategoryPath(actualPath));
                 let url:string = textToURL.textToURL(`/pr-${props.product.name}`);
                 navigate(url+`-${props.product.id}`);
 

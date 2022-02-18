@@ -22,3 +22,15 @@ export const desiredPathReducer =  (state = "/", action: AnyAction) => {
 }
 
 export type RootStateDesiredPath = ReturnType<typeof desiredPathReducer>
+
+
+export const categoryPathBeforeProductDetailsReducer =  (state = "/", action: AnyAction) => {
+    switch(action.type){
+        case 'SET_CATEGORY_PATH':
+            return action.payload
+        default:
+            return state
+    }
+}
+
+export type RootStateCategoryPathBeforeProductDetails= ReturnType<typeof categoryPathBeforeProductDetailsReducer>

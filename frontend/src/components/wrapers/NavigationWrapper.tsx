@@ -20,7 +20,7 @@ export const NavigationWrapper: FunctionComponent<Props>=(props: Props)=>{
     const isSomebodyLogged = useSelector((state:RootStateIsLogged) => state.isLogged);
     useEffect(()=>{
         dispatch(setDesiredPath(window.location.pathname))
-    }, [])
+    },[props])
    
     
 

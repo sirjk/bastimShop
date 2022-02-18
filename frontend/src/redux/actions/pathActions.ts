@@ -11,3 +11,11 @@ export const setCategoriesPathMap = (newPathMap: Object) =>{
         payload: newPathMap
     }
 }
+
+
+export const setCategoryPath = (path: string) =>{
+    return {
+        type: "SET_CATEGORY_PATH",
+        payload: path
+    }
+}

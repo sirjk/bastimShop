@@ -4,6 +4,7 @@ import com.company.shopBastim.model.*;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -124,6 +125,7 @@ public class UserSpecifications {
             return criteriaBuilder.like(root.get(User_.ROLES), "%" + postalAddressProvided + "%");
         });
     }
+
 
 
     //====== Turaj trzeba zrobic metode ktora bedzie wyszukiwała userów, ktorzy posiadaja wprowadzoną kolekcje ról========

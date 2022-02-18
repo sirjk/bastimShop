@@ -66,7 +66,10 @@ public class UserController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id){ return userService.deleteUser(id);}
+    public ResponseEntity<String> deleteUser(@PathVariable Long id, Principal principal){
+        return userService.deleteUser(id, principal);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<String> putUser(HttpServletRequest request, HttpServletResponse response,@RequestHeader String password, @PathVariable Long id, @RequestBody User user, Principal principal){

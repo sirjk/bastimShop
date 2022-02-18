@@ -1,6 +1,5 @@
 package com.company.shopBastim.repository;
 
-import com.company.shopBastim.model.Product;
 import com.company.shopBastim.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +15,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long>, JpaSpecificationExecutor {
 
-    @Query(value = "SELECT * FROM users c WHERE c.email = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM users c WHERE c.email = ?1 AND  c.state != 'deleted'", nativeQuery = true)
     Optional<User> findUserByEmail(String email);
+
 
     public Page<User> findAll(Specification specification, Pageable pageable);
 

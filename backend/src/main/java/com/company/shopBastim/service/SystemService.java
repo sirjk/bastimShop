@@ -1,5 +1,6 @@
 package com.company.shopBastim.service;
 
+import com.company.shopBastim.enums.UserState;
 import com.company.shopBastim.model.Role;
 import com.company.shopBastim.model.User;
 import com.company.shopBastim.repository.RoleRepository;
@@ -73,6 +74,7 @@ public class SystemService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         user.setPoints(0);
+        user.setState(UserState.active);
 
         userRepository.save(user);
         return "Success: Registration process successful";

@@ -1,5 +1,6 @@
 package com.company.shopBastim.service;
 
+import com.company.shopBastim.enums.UserState;
 import com.company.shopBastim.exceptions.DoesNotExistException;
 import com.company.shopBastim.exceptions.RefreshTokenMissingException;
 import com.company.shopBastim.exceptions.RefreshTokenTTLBelowOneException;
@@ -263,16 +264,6 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public ResponseEntity<String> deleteUser(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        if(userOptional.isPresent()){
-            userRepository.deleteById(id);
-            return new ResponseEntity<String>("Deleted.", HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<String>("Not deleted. User with provided ID not found", HttpStatus.NOT_ACCEPTABLE);
-        }
-    }
 
     public String putUser(Long id, User user, Principal principal, String password,HttpServletRequest request, HttpServletResponse response) throws DoesNotExistException, NoPermissionException  {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
@@ -407,5 +398,37 @@ public class UserService implements UserDetailsService {
 
     }
 
+
+    public ResponseEntity<String> deleteUser(Long id, Principal principal) {
+
+        Optional<User> querer = userRepository.findUserByEmail(principal.getName());
+        Optional<User> userOptional = userRepository.findById(id);
+        AtomicReference<Integer> flag = new AtomicReference<>(0);
+        querer.get().getRoles().forEach( role -> {
+            role.getPermissions().forEach( permission -> {
+                if(permission.getName().equals("DELETE_USER_SELF")){
+                    flag.set(1);
+                }
+                else if(permission.getName().equals("DELETE_USER")){
+                    flag.set(2);
+                }
+            });
+        });
+
+        if(flag.get().equals(1)){
+            userOptional.get().setState(UserState.deleted);
+            userRepository.save(userOptional.get());
+            return new ResponseEntity<String>("Deleted. (user status changed into 'deleted')", HttpStatus.OK);
+        }
+        else if(flag.get().equals(2)){
+            userRepository.deleteById(id);
+            return new ResponseEntity<String>("Deleted.", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<String>("Not deleted. User with provided ID does not exist or you do not have permission to do this action", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+
+    }
 
 }

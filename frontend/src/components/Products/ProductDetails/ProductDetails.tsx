@@ -8,6 +8,10 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {Button, Divider, Input, InputNumber} from "antd";
 import {CheckCircleOutlined, ExclamationCircleOutlined, MinusOutlined, PlusCircleOutlined} from "@ant-design/icons";
 import {PathBar} from "../../PathBar/PathBar";
+import classesGlobal from "../../../app.module.css";
+import {useSelector} from "react-redux";
+import {RootStateUserId} from "../../../redux/reducers/userReducers";
+import {RootStateCategoryPathBeforeProductDetails, RootStateDesiredPath} from "../../../redux/reducers/pathReducers";
 
 interface Props{
 }
@@ -92,11 +96,46 @@ export const ProductsDetails: FunctionComponent<Props>=(props: Props)=>{
         }
     }
 
+    interface linkList{
+        name: string,
+        url: string
+    }
+
+    function generatePath(categoryPath:string): linkList[]{
+        categoryPath=categoryPath.substring(1,categoryPath.length);
+        let temp:string = "";
+        let url:string = "/";
+        let pathList : linkList[] = [{"name": "Bastim", "url": "/"}];
+        let i:number=0;
+        for(let char of categoryPath){
+            ++i;
+            if(char!=='/'){
+                temp+=char;
+            }
+            else{
+                url+=temp;
+                pathList.push({"name": temp,  "url": url})
+                url+="/";
+                temp = ""
+            }
+
+            if(i==categoryPath.length){
+                url+=temp;
+                pathList.push({"name": temp,  "url": url})
+            }
+        }
+        return pathList;
+    }
 
 
+    const categoryPath = useSelector((state:RootStateCategoryPathBeforeProductDetails) => state.categoryPathBeforeProductDetails);
+
+    let pathList=generatePath(categoryPath);
+    pathList.push({"name":product.name, "url": ''});
 
     return(
-        <>
+        <div className={classesGlobal.page}>
+            <PathBar pathList={pathList}/>
         {
             flag?
             <div className={`${productDetailsClass["product-details-window"]} ${appClasses.content}`}>
@@ -159,8 +198,9 @@ export const ProductsDetails: FunctionComponent<Props>=(props: Props)=>{
 
             </div> : <div className={`${appClasses.content}`} style={{fontSize:"80px"}}>Nie znaleziono produktu</div>
                 }
-        </>
+        </div>
     )
 }
+
 
 

@@ -35,8 +35,15 @@ export const EntireListOfProductsPage: FunctionComponent<Props>=(props: Props)=>
     allEndpoints.shift();
     let url: string = "/";
     for(let i: number = 0; i< allEndpoints.length; i++){
-        url = url + allEndpoints[i] + "/"
-        pathList.push({"name": allEndpoints[i], "url": url})
+        if(i< allEndpoints.length-1){
+            url = url + allEndpoints[i]
+            pathList.push({"name": allEndpoints[i], "url": url})
+            url = url + "/"
+        }
+        else{
+            pathList.push({"name": allEndpoints[i], "url": ''})
+        }
+
     }
 
     return(

@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
 import {isLoggedReducer} from './loginReducers';
 import {userIdReducer} from "./userReducers";
-import {desiredPathReducer, categoriesPathReducer} from "./pathReducers";
+import {desiredPathReducer, categoriesPathReducer, categoryPathBeforeProductDetailsReducer} from "./pathReducers";
 import {searchPhraseReducer} from "./searchReducers";
 import {cartReducer} from "./cartReducers";
+import {setCategoryPath} from "../actions/pathActions";
 
 
 const reducers = combineReducers({
@@ -12,8 +13,8 @@ const reducers = combineReducers({
     isLogged: isLoggedReducer,
     userId: userIdReducer,
     searchPhrase: searchPhraseReducer,
-    cart: cartReducer
-
+    cart: cartReducer,
+    categoryPathBeforeProductDetails: categoryPathBeforeProductDetailsReducer
 })
 
 export default reducers

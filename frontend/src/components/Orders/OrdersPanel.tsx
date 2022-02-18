@@ -5,6 +5,8 @@ import {Divider, Select} from "antd";
 import {Link} from "react-router-dom";
 import orders from "../../actions/orders";
 import {OrderDetails} from "./OrderDetails/OrderDetails";
+import {PathBar} from "../PathBar/PathBar";
+import classesGlobal from "../../app.module.css";
 
 interface Props{
 }
@@ -52,59 +54,69 @@ export const OrdersPanel: FunctionComponent<Props>=(props: Props)=>{
         "orderState": string
     }
 
+    interface linkList{
+        name: string,
+        url: string
+    }
 
+    const pathList : linkList[] = [{"name": "Bastim", "url": "/"}, {"name": "Profil", "url": `/profile`}, {"name": "Zamówienia", "url": ``}];
 
 
     return(
-        <div className={orderClasses["order-window"]}>
-            <div className={orderClasses["search-filter-sort-div"]}>
-                <Search
-                    className={orderClasses["search"]}
-                    size={"large"}
-                    placeholder="Szukaj w zamówieniach"
-                    allowClear
-                />
-                <>
-                    <span>SORTUJ:</span>
-                    <Select className={orderClasses["sort"]} defaultValue="newest" >
-                        <Option value="newest">Od najnowszych</Option>
-                        <Option value="oldest">Od najstarszych</Option>
-                    </Select>
-                </>
-            </div>
+        <div className={classesGlobal.page}>
+            <PathBar pathList={pathList}/>
+            <div className={orderClasses["order-window"]}>
 
-            {orderList.map((data): any =>{
-                return(
-                    <div className={orderClasses["order-div"]}  key={data.id}>
-                        <div className={orderClasses["order-row-div"]}>
-                            <span>DATA KUPNA: {data.buyDate}</span>
-                            <span>STATUS ZAMÓWIENIA: <span style={colorStatus(data.orderState)}>{data.orderState}</span></span>
-                        </div>
-                        <Divider />
-                        {Object.keys(data.productMap).map((productMapKeys:string)=>{
-                            return(
-                                <div className={orderClasses["order-row-div"]}  key={productMapKeys}>
-                                    <span>{data.productMap[productMapKeys].product.name}</span>
-                                    <span>{data.productMap[productMapKeys].quantity} x {data.productMap[productMapKeys].product.price} PLN</span>
-                                    <span>CAŁKOWITY KOSZT: {data.totalCost} PLN</span>
-                                </div>
-                                )
-                            }
-                        )}
+                <div className={orderClasses["search-filter-sort-div"]}>
+                    <Search
+                        className={orderClasses["search"]}
+                        size={"large"}
+                        placeholder="Szukaj w zamówieniach"
+                        allowClear
+                    />
+                    <>
+                        <span>SORTUJ:</span>
+                        <Select className={orderClasses["sort"]} defaultValue="newest" >
+                            <Option value="newest">Od najnowszych</Option>
+                            <Option value="oldest">Od najstarszych</Option>
+                        </Select>
+                    </>
+                </div>
+
+                {orderList.map((data): any =>{
+                    return(
+                        <div className={orderClasses["order-div"]}  key={data.id}>
+                            <div className={orderClasses["order-row-div"]}>
+                                <span>DATA KUPNA: {data.buyDate}</span>
+                                <span>STATUS ZAMÓWIENIA: <span style={colorStatus(data.orderState)}>{data.orderState}</span></span>
+                            </div>
+                            <Divider />
+                            {Object.keys(data.productMap).map((productMapKeys:string)=>{
+                                    return(
+                                        <div className={orderClasses["order-row-div"]}  key={productMapKeys}>
+                                            <span>{data.productMap[productMapKeys].product.name}</span>
+                                            <span>{data.productMap[productMapKeys].quantity} x {data.productMap[productMapKeys].product.price} PLN</span>
+                                            <span>CAŁKOWITY KOSZT: {data.totalCost} PLN</span>
+                                        </div>
+                                    )
+                                }
+                            )}
 
 
 
 
-                        <span className={orderClasses["order-details"]}>
+                            <span className={orderClasses["order-details"]}>
                             <Link to={`/profile/orders/${data.id}`}> {/*tutaj /profile/orders/id -> id bedzie pobierane z api -> useParams()*/}
                                 Szczegóły zamówienia
                             </Link>
                         </span>
-                    </div>
-                );
-            })}
+                        </div>
+                    );
+                })}
 
+            </div>
         </div>
+
     )
 }
 

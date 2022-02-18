@@ -1,4 +1,4 @@
-import React, {FunctionComponent, MouseEventHandler, useEffect, useState} from 'react'
+import React, {FunctionComponent, MouseEventHandler, useEffect, useRef, useState} from 'react'
 import orders from "../../../actions/orders";
 import user from "../../../actions/user";
 import {useParams} from "react-router";
@@ -10,6 +10,7 @@ import {PathBar} from "../../PathBar/PathBar";
 import classesGlobal from "../../../app.module.css";
 import {useSelector} from "react-redux";
 import {RootStateUserId} from "../../../redux/reducers/userReducers";
+import products from "../../../actions/products";
 
 interface Props{
 }
@@ -75,6 +76,8 @@ export const OrderDetails: FunctionComponent<Props>=(props: Props)=>{
 
     const params = useParams();
 
+    const isMounted = useRef(false);
+
     useEffect(()=>{
         orders.getPeculiarOrder(params.id)
             .then((response)=>{
@@ -86,13 +89,18 @@ export const OrderDetails: FunctionComponent<Props>=(props: Props)=>{
     },[])
 
     useEffect(()=>{
-        user.getById(order.userId)
-            .then((response)=>{
-                setbuyer(response.data)
-            })
-            .catch((e)=>{
-                console.log(e)
-            })
+        if(!isMounted.current){
+            isMounted.current=true;
+        }
+        else{
+            user.getById(order.userId)
+                .then((response)=>{
+                    setbuyer(response.data)
+                })
+                .catch((e)=>{
+                    console.log(e.response.data)
+                })
+        }
     },[order])
 
     function calculateCostForProduct(quantity:string, price:string):number{
@@ -125,14 +133,14 @@ export const OrderDetails: FunctionComponent<Props>=(props: Props)=>{
                                 return (
                                     <>
                                         <div key={productMapKeys} className={peculiarOrderClasses["product-tile-info"]}>
-                                <span onClick={()=>onProductNameClick(order.productMap[productMapKeys].product)} className={peculiarOrderClasses["product-info"]}>
-                                     {order.productMap[productMapKeys].product.name}
-                                </span>
+                                            <span onClick={()=>onProductNameClick(order.productMap[productMapKeys].product)} className={peculiarOrderClasses["product-info"]}>
+                                                 {order.productMap[productMapKeys].product.name}
+                                            </span>
                                             <div className={peculiarOrderClasses["product-quantity-x-price"]}>
                                                 {order.productMap[productMapKeys].quantity}x{order.productMap[productMapKeys].product.price} zł
                                                 <span className={peculiarOrderClasses["product-price"]}>
-                                        {calculateCostForProduct(order.productMap[productMapKeys].quantity,order.productMap[productMapKeys].product.price)} zł
-                                    </span>
+                                                    {calculateCostForProduct(order.productMap[productMapKeys].quantity,order.productMap[productMapKeys].product.price)} zł
+                                                </span>
                                             </div>
 
                                         </div>

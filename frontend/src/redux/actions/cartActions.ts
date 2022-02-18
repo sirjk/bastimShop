@@ -21,3 +21,10 @@ export const changeQuantityInCart = (productId: string, newQuantity: number) =>{
         }
     }
 }
+
+export const setTotalCost= (newTotalCost: number) =>{
+    return {
+        type: "setTotalCost",
+        payload: newTotalCost
+    }
+}

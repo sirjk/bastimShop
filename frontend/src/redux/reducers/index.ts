@@ -4,6 +4,7 @@ import {userIdReducer} from "./userReducers";
 import {desiredPathReducer, categoriesPathReducer} from "./pathReducers";
 import {searchPhraseReducer} from "./searchReducers";
 import {cartReducer} from "./cartReducers";
+import {totalCostReducer} from "./cartReducers";
 
 
 const reducers = combineReducers({
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     isLogged: isLoggedReducer,
     userId: userIdReducer,
     searchPhrase: searchPhraseReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    totalCost: totalCostReducer
 
 })
 

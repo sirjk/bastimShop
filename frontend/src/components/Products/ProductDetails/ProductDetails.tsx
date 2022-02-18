@@ -132,7 +132,7 @@ export const ProductsDetails: FunctionComponent<Props>=(props: Props)=>{
                                     <span style={{fontSize:"20px"}}>Ilość:</span>
                                     <MinusOutlined onClick={handleDecreaseClick} className={`${productDetailsClass["increase-decrease-btn"]} ${appClasses["noselect"]}`}/>
                                     <InputNumber controls={false} min={1} defaultValue={1} value={quantityToBuy} onChange={value => setQuantityToBuy(value)} className={productDetailsClass["quantity-input"]}/>
-                                    <PlusCircleOutlined onClick={handleIncreaseClick} className={productDetailsClass["increase-decrease-btn"]}/>
+                                    <PlusCircleOutlined onClick={handleIncreaseClick} className={`${productDetailsClass["increase-decrease-btn"]} ${appClasses["noselect"]}`}/>
                                     {
                                         product.quantityInStock > 0 ?
                                             <Button className={productDetailsClass["add-to-cart-btn"]} type="primary">Dodaj

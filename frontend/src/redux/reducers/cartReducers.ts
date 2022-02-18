@@ -1,11 +1,12 @@
 import {AnyAction} from "@reduxjs/toolkit";
 
 interface LooseObject {
-    [key: string]: any
+    [key: string]: number
 }
 
-export const cartReducer =  (state : LooseObject = new Object, action: AnyAction) => {
+export const cartReducer =  (state : LooseObject = {}, action: AnyAction) => {
     let newState : LooseObject = {...state};
+    console.log(newState)
     switch(action.type){
         case 'ADD_TO_CART':
             newState[action.payload.product.id] =  action.payload;
@@ -27,3 +28,15 @@ export const cartReducer =  (state : LooseObject = new Object, action: AnyAction
 }
 
 export type RootStateCart = ReturnType<typeof cartReducer>
+
+export const totalCostReducer =  (state : number = 0.0, action: AnyAction) => {
+  
+    switch(action.type){
+        case 'SET_TOTAL_COST':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export type RootStateTotalCost = ReturnType<typeof totalCostReducer>

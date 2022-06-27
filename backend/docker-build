@@ -13,4 +13,4 @@ RUN apt -y install openjdk-17-jdk
 
 RUN apt -y install mysql-server
 
-CMD ["sh", "-c", "service mysql start && mysql -u root --password=root -e "CREATE DATABASE bastimdb" && mvn -f inputVol/bastimShop/backend package && cp ./inputVol/bastimShop/backend/target/shopBastim.jar ./outputVol/"]
+CMD ["sh", "-c", "service mysql start && mysql -u root --password=root -e \"CREATE DATABASE bastimdb\" && mvn -f inputVol/bastimShop/backend package && cp ./inputVol/bastimShop/backend/target/shopBastim.jar ./outputVol/"]

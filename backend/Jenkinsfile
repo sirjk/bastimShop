@@ -44,7 +44,8 @@ pipeline {
             }
         }
         stage('Publish') {
-            echo 'Publishing..'
+	    steps {
+		echo 'Publishing..'
                 script{
                     if(params.promote){
                         sh "mv ./artifact/shopBastim.jar ./artifact/shopBastim-${params.version}.jar"
@@ -54,6 +55,7 @@ pipeline {
                         echo 'Pipeline finished work sucessfully but new version wasn\'t published.'
                     }
                 }
+            }
         }
     }
 }

@@ -1,0 +1,16 @@
+FROM ubuntu:latest
+
+ENV MYSQL_ROOT_PASSWORD root
+ENV TZ=Europe/Warsaw
+
+RUN apt-get -y update
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt -y install maven
+
+RUN apt -y install openjdk-17-jdk
+
+RUN apt -y install mysql-server
+
+CMD ["sh", "-c", "service mysql start && mysql -u root --password=root -e "CREATE DATABASE bastimdb" && mvn -f inputVol/bastimShop/ package && cp ./inputVol/bastimShop/target/shopBastim.jar ./outputVol/"]

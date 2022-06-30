@@ -2,8 +2,6 @@ FROM ubuntu:latest
 
 ENV TZ=Europe/Warsaw
 
-ENV MYSQL_ROOT_PASSWORD=root
-
 RUN apt-get -y update
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -14,12 +12,9 @@ RUN apt -y install openjdk-17-jdk
 
 RUN apt -y install mysql-server
 
-RUN service mysql start
-
-RUN mysql -u root --password=root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'"
-
-RUN mysql -u root --password=root -e "FLUSH PRIVILEGES"
-
-RUN mysql -u root --password=root -e "CREATE DATABASE bastimdb"
+RUN service mysql start && \
+mysql -u root --password=root -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root'" && \
+mysql -u root --password=root -e "FLUSH PRIVILEGES" && \
+mysql -u root --password=root -e "CREATE DATABASE bastimdb"
 
 CMD ["sh", "-c", mvn -f inputVol/bastimShop/backend package && cp ./inputVol/bastimShop/backend/target/shopBastim.jar ./outputVol/"]

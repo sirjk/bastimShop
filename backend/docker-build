@@ -12,4 +12,4 @@ RUN apt-get -y install openjdk-17-jdk
 
 EXPOSE 8082
 
-CMD ["sh", "-c", "mvn -f inputVol/bastimShop/backend clean package && cp ./inputVol/bastimShop/backend/target/shopBastim.jar ./outputVol/"]
+CMD ["sh", "-c", "mvn -f inputVol/bastimShop/backend package && cp ./inputVol/bastimShop/backend/target/shopBastim.jar ./outputVol/"]

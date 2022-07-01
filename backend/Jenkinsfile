@@ -22,8 +22,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+		sh 'docker network create app_network'
                 sh 'docker build -t builder:latest . -f /var/jenkins_home/workspace/DevOpsPipeline2/backend/docker-build'
-                sh 'docker run --mount source=vol-in,destination=/inputVol --mount source=vol-out,destination=/outputVol builder:latest'
+		sh 'docker run -d -it --network app_network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=bastimdb mysql'
+                sh 'docker run -d -it -p 8082:8080 --network app_network --mount source=vol-in,destination=/inputVol --mount source=vol-out,destination=/outputVol builder:latest'
             }
         }
         stage('Test') {

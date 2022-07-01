@@ -22,7 +22,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-		sh 'docker network rm my-network'
+		sh 'docker network rm app_network'
 		sh 'docker network create app_network'
                 sh 'docker build -t builder:latest . -f /var/jenkins_home/workspace/DevOpsPipeline2/backend/docker-build'
 		sh 'docker run -d -it --network app_network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=bastimdb mysql'
